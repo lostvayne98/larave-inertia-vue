@@ -60,9 +60,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return Inertia::render('Users/Show',[
+            'title' => $user->name,
+            'user' => $user
+        ]);
     }
 
     /**
@@ -71,9 +74,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return Inertia::render('Users/Update',[
+            'title' => 'user',
+            'user' => $user
+        ]);
+
     }
 
     /**
@@ -83,9 +90,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $user->update([
+            'name' => $request->name,
+            'password' => Hash::make($request->password)
+        ]);
+        return redirect()->route('users.index');
     }
 
     /**
