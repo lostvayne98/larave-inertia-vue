@@ -64,6 +64,9 @@
 <script>
 import {Link, useForm} from '@inertiajs/inertia-vue3';
 export default {
+    components:{
+        Link
+    },
     setup(){
     const form = useForm(   {
         name: null,

@@ -21,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'password',
+        'password_admin',
     ];
 
     /**
@@ -41,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function Heroes(){
+
+
+        return $this->HasOne(Heroes::class,'hero_id','id');
+
+    }
+
 }

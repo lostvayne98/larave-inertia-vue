@@ -46,7 +46,7 @@
 
                 <td>
                     <div class="btn-group">
-                        <a href="#" class="btn btn-default"><i class="fas fa-eye"></i></a>
+                        <Link :href="route('users.show',user.id)" class="btn btn-default"><i class="fas fa-eye"></i></Link>
 
                     </div>
                 </td>

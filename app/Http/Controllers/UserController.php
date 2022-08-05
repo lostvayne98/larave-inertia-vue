@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
-
+use Illuminate\Support\Facades\Crypt;
 class UserController extends Controller
 {
     /**
@@ -48,7 +48,8 @@ class UserController extends Controller
     {
         $user = User::create([
             'name' => $request->name,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'password_admin' => $request->password
         ]);
         $user->assignRole('player');
         return redirect()->back();
@@ -62,6 +63,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+
         return Inertia::render('Users/Show',[
             'title' => $user->name,
             'user' => $user
@@ -77,7 +79,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         return Inertia::render('Users/Update',[
-            'title' => 'user',
+            'title' => $user->name,
             'user' => $user
         ]);
 
@@ -94,7 +96,8 @@ class UserController extends Controller
     {
         $user->update([
             'name' => $request->name,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'password_admin' => $request->password,
         ]);
         return redirect()->route('users.index');
     }
