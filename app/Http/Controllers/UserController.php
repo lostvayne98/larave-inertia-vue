@@ -20,7 +20,7 @@ class UserController extends Controller
             $users = User::orderByDesc('created_at')->CursorPaginate(5);
 
         return Inertia::render('Users/Index',[
-            'title' => 'users page',
+            'title' => 'Пользователи',
             'users' => $users,
         ]);
     }
@@ -34,7 +34,7 @@ class UserController extends Controller
     public function create()
     {
         return Inertia::render('Users/Create',[
-            'title' => 'users',
+            'title' => 'Пользователи',
         ]);
     }
 

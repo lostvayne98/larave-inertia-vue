@@ -10,6 +10,7 @@ class Heroes extends Model
     use HasFactory;
     protected $fillable=[
         'user_id',
+        'name',
         'faculty',
         'course',
         'rank',

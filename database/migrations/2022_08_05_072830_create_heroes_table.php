@@ -25,9 +25,9 @@ class CreateHeroesTable extends Migration
             $table->string('hack_skills');
             $table->string('combat_skills');
             $table->string('photo');
-            $table->string('life');
-            $table->string('energy');
-            $table->string('firewall');
+            $table->string('life')->default(1);
+            $table->string('energy')->default(1);
+            $table->string('firewall')->default(1);
             $table->timestamps();
         });
     }

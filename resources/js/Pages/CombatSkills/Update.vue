@@ -9,7 +9,8 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <Link :href="route('users.index')" class="text-indigo-600 hover:text-indigo-900 my-5 block">
+
+                            <Link :href="route('combat_skills.index')" class="text-indigo-600 hover:text-indigo-900 my-5 block">
                                 Вернуться назад
                             </Link>
                         </ol>
@@ -24,7 +25,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Title</h3>
+                    <h3 class="card-title">{{title}}</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -35,18 +36,21 @@
                         </button>
                     </div>
                 </div>
-                <form @submit.prevent="store">
-                <div class="card-body">
-                    <label >Имя</label>
-                    <input v-model="form.name" type="text"  class="form-control" name="name" placeholder="Имя">
-                </div>
-                <div class="card-body">
-                    <label >Пароль</label>
-                    <input type="password"  v-model="form.password" class="form-control" name="Password" placeholder="password">
-                </div>
-                <!-- /.card-body -->
-<button class="btn btn-success">Применить</button>
-                <!-- /.card-footer-->
+                <form @submit.prevent="update">
+                    <div class="card-body">
+                        <label >Название скилла</label>
+                        <input v-model="form.name" type="text"  class="form-control" name="name" placeholder="Имя">
+                    </div>
+                    <div class="card-body">
+                        <label >Редкость</label>
+                        <select  v-model="form.rarity" class="form-control" name="rarity">
+                            <option v-for="uni in unic"> {{uni}}</option>
+
+                        </select>
+                    </div>
+                    <!-- /.card-body -->
+                    <button class="btn btn-success">Применить</button>
+                    <!-- /.card-footer-->
                 </form>
             </div>
             <!-- /.card -->
@@ -61,21 +65,35 @@
 <script>
 import {Link, useForm} from '@inertiajs/inertia-vue3';
 export default {
+    data(){
+        return {
+            unic: {
+                1: 'Обычный',
+                2: 'Редкий',
+                3: 'Уникальный' ,
+                4: 'Сверхъуникальный'
+            }
+        }
+    },
+    props:{
+        title:String,
+        Combat:Object,
+    },
     components:{
         Link
     },
-    setup(){
-    const form = useForm(   {
-        name: null,
-        password: null,
+    setup(props){
+        const form = useForm(   {
+            name: props.Combat.name,
+            rarity: null,
 
 
-    });
+        });
 
-    function store() {
-        form.post(route('users.store'))
-    }
-    return {form, store};
+        function update() {
+            form.put(route('combat_skills.update',props.Combat.id))
+        }
+        return {form, update};
     }
 }
 </script>

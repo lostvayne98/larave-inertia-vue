@@ -9,7 +9,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <Link :href="route('users.index')" class="text-indigo-600 hover:text-indigo-900 my-5 block">
+                            <Link :href="route('hack_skills.index')" class="text-indigo-600 hover:text-indigo-900 my-5 block">
                                 Вернуться назад
                             </Link>
                         </ol>
@@ -36,17 +36,20 @@
                     </div>
                 </div>
                 <form @submit.prevent="store">
-                <div class="card-body">
-                    <label >Имя</label>
-                    <input v-model="form.name" type="text"  class="form-control" name="name" placeholder="Имя">
-                </div>
-                <div class="card-body">
-                    <label >Пароль</label>
-                    <input type="password"  v-model="form.password" class="form-control" name="Password" placeholder="password">
-                </div>
-                <!-- /.card-body -->
-<button class="btn btn-success">Применить</button>
-                <!-- /.card-footer-->
+                    <div class="card-body">
+                        <label >Скилл</label>
+                        <input v-model="form.name" type="text"  class="form-control" name="name" placeholder="Имя">
+                    </div>
+                    <div class="card-body">
+                        <label >Редкость</label>
+                        <select  v-model="form.rarity" class="form-control" name="rarity">
+                            <option v-for="uni in unic"> {{uni}}</option>
+
+                        </select>
+                    </div>
+                    <!-- /.card-body -->
+                    <button class="btn btn-success">Применить</button>
+                    <!-- /.card-footer-->
                 </form>
             </div>
             <!-- /.card -->
@@ -61,21 +64,34 @@
 <script>
 import {Link, useForm} from '@inertiajs/inertia-vue3';
 export default {
+    data(){
+        return {
+            unic: {
+                1: 'Обычный',
+                2: 'Редкий',
+                3: 'Уникальный' ,
+                4: 'Сверхъуникальный'
+            }
+        }
+    },
+    props:{
+        title:String
+    },
     components:{
         Link
     },
     setup(){
-    const form = useForm(   {
-        name: null,
-        password: null,
+        const form = useForm(   {
+            name: null,
+            rarity: null,
 
 
-    });
+        });
 
-    function store() {
-        form.post(route('users.store'))
-    }
-    return {form, store};
+        function store() {
+            form.post(route('hack_skills.store'))
+        }
+        return {form, store};
     }
 }
 </script>

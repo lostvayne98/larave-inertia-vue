@@ -17,8 +17,16 @@ Route::group(['prefix' => 'admin'],function(){
     Route::group(['middleware' => ['role:admin']],function() {
 
      /*   Route::get('/', 'App\Http\Controllers\AdminLteController@admin')->name('admin');*/
+        //Вывод шаблона
         Route::get('/','App\Http\Controllers\AdminLteController@index')->name('index');
+        //Вывод пользователей CRUD
         Route::resource('/users','App\Http\Controllers\UserController');
+        //Обычные скиллы CRUD
+        Route::resource('/combat_skills','App\Http\Controllers\CombatSkillsController');
+        //Хак Скиллы CRUD
+        Route::resource('/hack_skills','App\Http\Controllers\HackSkillsController');
+        //Герой CRUD
+        Route::resource('/heroes','App\Http\Controllers\HeroesController');
 
 
     });

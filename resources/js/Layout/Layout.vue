@@ -191,9 +191,33 @@
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <!-- Add icons to the links using the .nav-icon class
                                  with font-awesome or any other icon font library -->
+
+
                             <li class="nav-item">
-                                <Link :href="route('users.index')" >
+                                <Link class="nav-link" :href="route('users.index')" >
                                     Пользователи
+
+                                </Link>
+                            </li>
+
+                            <li class="nav-item">
+                                <Link class="nav-link" :href="route('combat_skills.index')" >
+
+                                    <p>   Обычные скиллы </p>
+
+                                </Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" :href="route('hack_skills.index')" >
+
+                                    <p>   Хак скиллы </p>
+
+                                </Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" :href="route('heroes.index')" >
+
+                                    <p>   Герои </p>
 
                                 </Link>
                             </li>

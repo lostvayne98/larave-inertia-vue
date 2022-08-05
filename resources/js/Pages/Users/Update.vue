@@ -36,7 +36,7 @@
                         </button>
                     </div>
                 </div>
-                <form @submit.prevent="store">
+                <form @submit.prevent="update">
                     <div class="card-body">
                         <label >Имя</label>
                         <input v-model="form.name" type="text"  class="form-control" name="name" placeholder="Имя">
@@ -51,9 +51,7 @@
                 </form>
             </div>
             <!-- /.card -->
-            <div class="card-footer">
-                Footer
-            </div>
+
         </section>
         <!-- /.content -->
     </div>
@@ -65,12 +63,13 @@
 import {Link, useForm} from '@inertiajs/inertia-vue3';
 export default {
     props:{
-        title:String
+        title:String,
+        user:Object,
     },
     components:{
         Link
     },
-    setup(){
+    setup(props){
         const form = useForm(   {
             name: null,
             password: null,
@@ -78,10 +77,10 @@ export default {
 
         });
 
-        function store() {
-            form.post(route('users.store'))
+        function update() {
+            form.put(route('users.update',props.user.id))
         }
-        return {form, store};
+        return {form, update};
     }
 }
 </script>
