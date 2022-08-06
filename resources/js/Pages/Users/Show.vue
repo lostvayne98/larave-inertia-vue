@@ -47,6 +47,106 @@
                 {{user.password_admin}}
             </td>
             </tr>
+            <div v-if="user.hero_id != null">
+            <tr >
+                <th>
+                    Герой
+                </th>
+                <td>
+                    {{hero.name}}
+                </td>
+            </tr>
+                <tr>
+                <th>
+                    Факультет
+                </th>
+                <td>
+                    {{hero.name}}
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    Курсы
+                </th>
+                <td>
+                    {{hero.name}}
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    Звание
+                </th>
+                <td>
+                    {{hero.name}}
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    Биография
+                </th>
+
+                <td>
+                    {{hero.name}}
+                </td>
+            </tr>
+
+            <tr>
+
+                <th>
+                    Квесты
+                </th>
+                <td>
+                    {{hero.name}}
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    Хак Скиллы
+                </th>
+                <td>
+                    {{hero.name}}
+                </td>
+
+            </tr>
+                <th>
+                    Обычные скиллы
+                </th>
+                <td>
+                    {{hero.name}}
+                </td>
+            <tr>
+
+                <th>
+                    Жизни
+                </th>
+                <td>
+                    {{hero.name}}
+                </td>
+            </tr>
+            <tr>
+
+                <th>
+                    Энергия
+                </th>
+                <td>
+                    {{hero.name}}
+                </td>
+            </tr>
+            <tr>
+
+                <th>
+
+                    Firewall
+                </th>
+                <td>
+                    {{hero.name}}
+                </td>
+            </tr>
+            </div>
             <tr>
 <th>
 Изменения
@@ -72,7 +172,8 @@ export default {
     },
     props:{
         user:Object,
-        title:String
+        title:String,
+        hero:Object
     }
 }
 </script>

@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'password',
         'password_admin',
+        'hero_id'
     ];
 
     /**
@@ -46,7 +47,7 @@ class User extends Authenticatable
     public function Heroes(){
 
 
-        return $this->HasOne(Heroes::class,'hero_id','id');
+        return $this->HasOne(Heroes::class,'id','hero_id',);
 
     }
 

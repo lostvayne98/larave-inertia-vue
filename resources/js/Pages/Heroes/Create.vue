@@ -74,10 +74,10 @@
                             <option v-for="combatSkill in combatSkills" :key="combatSkill.id"> {{combatSkill.name}}</option>
                         </select>
                     </div>
-                    <div class="card-body">
+<!--                    <div class="card-body">
                         <label >Фото</label>
                         <input v-model="form.photo" type="file"  class="form-control" name="photo" >
-                    </div>
+                    </div>-->
 
                     <!-- /.card-body -->
                     <button class="btn btn-success">Применить</button>

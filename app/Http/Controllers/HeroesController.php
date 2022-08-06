@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CombatSkills;
 use App\Models\HackSkills;
 use App\Models\Heroes;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -36,10 +37,12 @@ class HeroesController extends Controller
         $hackSkills = HackSkills::all();
 
         $combatSkills = CombatSkills::all();
+       $users = User::all();
 
         return Inertia::render('Heroes/Create',[
             'hackSkills' => $hackSkills,
             'combatSkills' => $combatSkills,
+            'users' => $users,
             'title' => 'Создание героя'
         ]);
     }
@@ -95,11 +98,13 @@ class HeroesController extends Controller
         $hackSkills = HackSkills::all();
 
         $combatSkills = CombatSkills::all();
+        $users = User::all();
         return Inertia::render('Heroes/Update',[
             'hero' => $hero,
             'hackSkills' => $hackSkills,
             'combatSkills' => $combatSkills ,
-            'title' => 'Детальная страница Героя'
+            'title' => 'Детальная страница Героя',
+            'users'=> $users
         ]);
     }
 

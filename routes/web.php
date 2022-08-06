@@ -18,7 +18,7 @@ Route::group(['prefix' => 'admin'],function(){
 
      /*   Route::get('/', 'App\Http\Controllers\AdminLteController@admin')->name('admin');*/
         //Вывод шаблона
-        Route::get('/','App\Http\Controllers\AdminLteController@index')->name('index');
+        Route::get('/','App\Http\Controllers\AdminLteController@index')->name('admin');
         //Вывод пользователей CRUD
         Route::resource('/users','App\Http\Controllers\UserController');
         //Обычные скиллы CRUD

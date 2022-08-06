@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\UpdateHero;
+use App\Models\Heroes;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -33,8 +35,10 @@ class UserController extends Controller
      */
     public function create()
     {
+        $heroes = Heroes::where('user_id','=',null);
         return Inertia::render('Users/Create',[
             'title' => 'Пользователи',
+            'heroes' => 'null'
         ]);
     }
 
@@ -46,10 +50,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $hero = Heroes::all();
         $user = User::create([
             'name' => $request->name,
             'password' => Hash::make($request->password),
-            'password_admin' => $request->password
+            'password_admin' => $request->password,
+            'hero_id' => $hero->id ?? '',
         ]);
         $user->assignRole('player');
         return redirect()->back();
@@ -63,11 +69,23 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        if($user->hero_id != null){
+        $heroes = Heroes::where('user_id','=',$user->id)->get();
+        foreach ($heroes as $hero){
+
 
         return Inertia::render('Users/Show',[
             'title' => $user->name,
-            'user' => $user
+            'user' => $user,
+            'hero' => $hero
         ]);
+        }
+        }
+        return Inertia::render('Users/Show',[
+            'title' => $user->name,
+            'user' => $user,
+            ]);
+
     }
 
     /**
@@ -78,9 +96,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $heroes = Heroes::where('user_id','=',null)->get();
+
         return Inertia::render('Users/Update',[
             'title' => $user->name,
-            'user' => $user
+            'user' => $user,
+            'heroes' => $heroes
         ]);
 
     }
@@ -94,11 +115,24 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
+
+
         $user->update([
             'name' => $request->name,
             'password' => Hash::make($request->password),
             'password_admin' => $request->password,
+            'hero_id' => $request->hero_id
         ]);
+
+       if($user->hero_id != null){
+
+           $user->Heroes()->update([
+               'user_id' => $user->id
+           ]);
+
+       }
+
         return redirect()->route('users.index');
     }
 
