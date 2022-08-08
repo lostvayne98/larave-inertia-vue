@@ -61,7 +61,7 @@
                     Факультет
                 </th>
                 <td>
-                    {{hero.name}}
+                    {{hero.faculty}}
                 </td>
             </tr>
 
@@ -70,7 +70,7 @@
                     Курсы
                 </th>
                 <td>
-                    {{hero.name}}
+                    {{hero.course}}
                 </td>
             </tr>
 
@@ -79,7 +79,7 @@
                     Звание
                 </th>
                 <td>
-                    {{hero.name}}
+                    {{hero.rank}}
                 </td>
             </tr>
 
@@ -89,7 +89,7 @@
                 </th>
 
                 <td>
-                    {{hero.name}}
+                    {{hero.bio}}
                 </td>
             </tr>
 
@@ -99,7 +99,7 @@
                     Квесты
                 </th>
                 <td>
-                    {{hero.name}}
+                    {{hero.quests}}
                 </td>
             </tr>
 
@@ -108,7 +108,7 @@
                     Хак Скиллы
                 </th>
                 <td>
-                    {{hero.name}}
+                    {{hero.hack_skills}}
                 </td>
 
             </tr>
@@ -116,7 +116,7 @@
                     Обычные скиллы
                 </th>
                 <td>
-                    {{hero.name}}
+                    {{hero.combat_skills}}
                 </td>
             <tr>
 
@@ -124,7 +124,7 @@
                     Жизни
                 </th>
                 <td>
-                    {{hero.name}}
+                    {{hero.life}}
                 </td>
             </tr>
             <tr>
@@ -133,7 +133,7 @@
                     Энергия
                 </th>
                 <td>
-                    {{hero.name}}
+                    {{hero.energy}}
                 </td>
             </tr>
             <tr>
@@ -143,7 +143,7 @@
                     Firewall
                 </th>
                 <td>
-                    {{hero.name}}
+                    {{hero.firewall}}
                 </td>
             </tr>
             </div>

@@ -35,10 +35,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        $heroes = Heroes::where('user_id','=',null);
+        $heroes = Heroes::where('user_id','=',null)->get();
+
         return Inertia::render('Users/Create',[
             'title' => 'Пользователи',
-            'heroes' => 'null'
+            'heroes' => $heroes
         ]);
     }
 
@@ -50,16 +51,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $hero = Heroes::all();
+
         $user = User::create([
             'name' => $request->name,
             'password' => Hash::make($request->password),
             'password_admin' => $request->password,
-            'hero_id' => $hero->id ?? '',
+            'hero_id' => $request->hero_id
         ]);
+
+
         $user->assignRole('player');
-        return redirect()->back();
-    }
+
+
+        if($user->hero_id    !=    null)  {
+            $hero = Heroes::where('id','=',$user->hero_id)->first();
+            $hero->update([
+                'user_id' => $user->id
+            ]);
+        }
+
+        return redirect()->route('users.index');
+
+        }
 
     /**
      * Display the specified resource.
@@ -70,8 +83,8 @@ class UserController extends Controller
     public function show(User $user)
     {
         if($user->hero_id != null){
-        $heroes = Heroes::where('user_id','=',$user->id)->get();
-        foreach ($heroes as $hero){
+        $hero = Heroes::where('user_id','=',$user->id)->first();
+
 
 
         return Inertia::render('Users/Show',[
@@ -79,7 +92,7 @@ class UserController extends Controller
             'user' => $user,
             'hero' => $hero
         ]);
-        }
+
         }
         return Inertia::render('Users/Show',[
             'title' => $user->name,

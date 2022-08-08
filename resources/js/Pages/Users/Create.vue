@@ -44,6 +44,12 @@
                     <label >Пароль</label>
                     <input type="password"  v-model="form.password" class="form-control" name="Password" placeholder="password">
                 </div>
+                    <div class="card-body">
+                        <label >Герои</label>
+                        <select v-model="form.hero_id" type="text"  class="form-control">
+                            <option v-for="hero in heroes" :key="hero.id" :value="hero.id"> {{hero.name}}</option>
+                        </select>
+                    </div>
                 <!-- /.card-body -->
 <button class="btn btn-success">Применить</button>
                 <!-- /.card-footer-->
@@ -64,10 +70,14 @@ export default {
     components:{
         Link
     },
+    props:{
+        heroes:Array
+    },
     setup(){
     const form = useForm(   {
         name: null,
         password: null,
+        hero_id: null
 
 
     });

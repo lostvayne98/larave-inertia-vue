@@ -69,7 +69,7 @@ class HeroesController extends Controller
             'combat_skills'=> $request->combatSkills,
             'photo' => $photo ?? '',
         ]);
-        return redirect()->route('heroes.index');
+        /*return redirect()->route('heroes.index');*/
     }
 
     /**
