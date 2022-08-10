@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CombatSkills;
 use App\Models\HackSkills;
+use App\Models\HeroCombat;
 use App\Models\Heroes;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -58,18 +59,25 @@ class HeroesController extends Controller
         if($request->hasFile('photo')){
             $photo =  $request->file('photo')->store('img');
         }
-        Heroes::create([
+       $hero =  Heroes::create([
             'name' => $request->name,
             'faculty' => $request->faculty,
             'course' => $request->course,
             'rank'=> $request->rank,
             'bio'=> $request->bio,
             'quests'=> $request->quests,
-            'hack_skills'=> $request->hackSkills,
-            'combat_skills'=> $request->combatSkills,
+            'hack_skills_id'=> $request->hackSkills,
+            'combat_skills_id'=> $request->combatSkills,
             'photo' => $photo ?? '',
         ]);
-        /*return redirect()->route('heroes.index');*/
+
+        HeroCombat::create([
+            'combat_skill_id' => $request->combatSkills,
+            'hero_id' => $hero->id
+        ]);
+
+
+        return redirect()->route('heroes.index');
     }
 
     /**

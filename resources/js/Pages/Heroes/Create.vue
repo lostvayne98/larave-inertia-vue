@@ -65,13 +65,13 @@
                     <label >Хак скиллы</label>
                     <select v-model="form.hackSkills" type="text"  class="form-control" name="hackSkills" >
 
-                        <option v-for="HackSkill in hackSkills" :key="HackSkill.id ">{{HackSkill.name}}</option>
+                        <option v-for="HackSkill in hackSkills" :key="HackSkill.id " :value="HackSkill.id">{{HackSkill.name}}</option>
                     </select>
                 </div>
                     <div class="card-body">
                         <label >Обычные скиллы</label>
                         <select v-model="form.combatSkills" type="text"  class="form-control">
-                            <option v-for="combatSkill in combatSkills" :key="combatSkill.id"> {{combatSkill.name}}</option>
+                            <option v-for="combatSkill in combatSkills" :key="combatSkill.id" :value="combatSkill.id"> {{combatSkill.name}}</option>
                         </select>
                     </div>
 

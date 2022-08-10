@@ -24,7 +24,7 @@ class Heroes extends Model
         'firewall'
     ];
 
-    public function CombatSkills(){
+   /* public function CombatSkills(){
 
         return $this->hasOne(CombatSkills::class,'hack_skills','id');
 
@@ -34,5 +34,12 @@ class Heroes extends Model
 
         return $this->hasOne(HackSkills::class,'combat_skills','id');
 
+    }*/
+
+    public function CombatSkills(){
+        return $this->HasManyThrough(HeroCombat::class,CombatSkills::class,'id','combat_skill_id');
+    }
+    public function HackSkills(){
+        return $this->HasManyThrough(HeroHack::class,CombatSkills::class,'id','hack_skill_id');
     }
 }

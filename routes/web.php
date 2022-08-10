@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'admin'],function(){
-    Route::group(['middleware' => ['role:admin']],function() {
+    Route::group(['middleware' => ['auth','role:admin']],function() {
 
      /*   Route::get('/', 'App\Http\Controllers\AdminLteController@admin')->name('admin');*/
         //Вывод шаблона
