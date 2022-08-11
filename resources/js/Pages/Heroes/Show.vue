@@ -38,7 +38,7 @@
                             Фотография
                         </th>
                         <td>
-                            {{hero.id}}
+                            <img  style="width:50px;height:50px" :src="`/storage/${hero.photo}`">
                         </td>
                     </tr>
                     <th>
@@ -84,16 +84,20 @@
                         <th>
                             Хак скилл
                         </th>
-                        <td>
-                            {{hero.hack_skills}}
+                        <td v-for="hackSkill in hackSkills">
+                            {{hackSkill.amount}}
                         </td>
+
                     </tr>
                     <tr>
                         <th>
                             Обычные скиллы
                         </th>
-                        <td>
-                            {{hero.combat_skills}}
+                        <td v-for="combatSkill in combatSkills">
+                            {{combatSkill.amount}}
+                        </td>
+                        <td v-for="combatSkill in combatSkills">
+                            {{combatSkill.amount}}
                         </td>
                     </tr>
                     <tr>
@@ -145,7 +149,9 @@ export default {
     },
     props:{
         hero:Object,
-        title:String
+        title:String,
+        combatSkills:Array,
+        hackSkills:Array
     }
 }
 </script>

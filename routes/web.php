@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('', function () {
+    return view('auth.login');
+});
 Route::group(['prefix' => 'admin'],function(){
     Route::group(['middleware' => ['auth','role:admin']],function() {
 
@@ -26,7 +28,10 @@ Route::group(['prefix' => 'admin'],function(){
         //Хак Скиллы CRUD
         Route::resource('/hack_skills','App\Http\Controllers\HackSkillsController');
         //Герой CRUD
-        Route::resource('/heroes','App\Http\Controllers\HeroesController');
+        Route::resource('/heroes','App\Http\Controllers\HeroesController')->except([
+            'update'
+        ]);
+        Route::post('/heroes/{hero}','App\Http\Controllers\HeroesController@update')->name('heroes.update');
 
 
     });
@@ -42,5 +47,4 @@ Route::group(['middleware' => 'auth'],function(){
 });
 
 
-Auth::routes();
 

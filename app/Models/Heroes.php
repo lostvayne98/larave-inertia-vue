@@ -16,30 +16,30 @@ class Heroes extends Model
         'rank',
         'bio',
         'quests',
-        'hack_skills',
-        'combat_skills',
         'photo',
         'life',
         'energy',
         'firewall'
     ];
 
-   /* public function CombatSkills(){
+  public function heroHack(){
 
-        return $this->hasOne(CombatSkills::class,'hack_skills','id');
+      return $this->hasMany(HeroHack::class,'hero_id','id');
+  }
 
-    }
+  public function heroCombat(){
 
+      return $this->hasMany(HeroCombat::class,'hero_id','id');
+  }
+
+  public function CombatSkills(){
+
+      return $this->hasManyThrough(CombatSkills::class,HeroCombat::class,'combat_skills_id','id','id','hero_id');
+  }
     public function HackSkills(){
 
-        return $this->hasOne(HackSkills::class,'combat_skills','id');
-
-    }*/
-
-    public function CombatSkills(){
-        return $this->HasManyThrough(HeroCombat::class,CombatSkills::class,'id','combat_skill_id');
+        return $this->hasManyThrough(HackSkills::class,HeroHack::class,'hack_skills_id','id','id','hero_id');
     }
-    public function HackSkills(){
-        return $this->HasManyThrough(HeroHack::class,CombatSkills::class,'id','hack_skill_id');
-    }
+
+
 }

@@ -71,13 +71,15 @@
                     <div class="card-body">
                         <label >Обычные скиллы</label>
                         <select v-model="form.combatSkills" type="text"  class="form-control">
+
                             <option v-for="combatSkill in combatSkills" :key="combatSkill.id" :value="combatSkill.id"> {{combatSkill.name}}</option>
                         </select>
                     </div>
 
                     <div class="card-body">
                         <label >Фото</label>
-                        <input :v-model="form.photo"  type="file" class="form-control">
+<!--                        <input :v-model="form.photo"  type="file" class="form-control">-->
+                        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
                     </div>
 <!--                    <div class="card-body">
                         <label >Фото</label>
@@ -109,11 +111,20 @@ export default {
         combatSkills: Array,
         title:String
     },
-
+    data(){
+        return {
+            file: ''
+        }
+    },
+    methods: {
+        handleFileUpload(){
+            this.form.photo = this.$refs.file.files[0];
+        }
+    },
     setup(){
         const form = useForm(   {
             name: null,
-          faculty: null,
+            faculty: null,
             course:null,
             rank:null,
             bio:null,
@@ -125,6 +136,8 @@ export default {
         });
 
         function store() {
+            console.log('now');
+            console.log(form.photo)
             form.post(route('heroes.store'))
         }
         return {form, store};

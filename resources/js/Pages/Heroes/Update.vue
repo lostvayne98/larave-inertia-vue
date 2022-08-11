@@ -9,8 +9,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-
-                            <Link :href="route('users.index')" class="text-indigo-600 hover:text-indigo-900 my-5 block">
+                            <Link :href="route('heroes.index')" class="text-indigo-600 hover:text-indigo-900 my-5 block">
                                 Вернуться назад
                             </Link>
                         </ol>
@@ -25,7 +24,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">{{title}}</h3>
+                    <h3 class="card-title">Title</h3>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -66,21 +65,29 @@
                         <label >Хак скиллы</label>
                         <select v-model="form.hackSkills" type="text"  class="form-control" name="hackSkills" >
 
-                            <option v-for="HackSkill in hackSkills" :key="HackSkill.id ">{{HackSkill.name}}</option>
+                            <option v-for="HackSkill in hackSkills" :key="HackSkill.id " :value="HackSkill.id">{{HackSkill.name}}</option>
                         </select>
                     </div>
                     <div class="card-body">
                         <label >Обычные скиллы</label>
                         <select v-model="form.combatSkills" type="text"  class="form-control">
-                            <option v-for="combatSkill in combatSkills" :key="combatSkill.id"> {{combatSkill.name}}</option>
+
+                            <option v-for="combatSkill in combatSkills" :key="combatSkill.id" :value="combatSkill.id"> {{combatSkill.name}}</option>
                         </select>
                     </div>
-<!--                    <div class="card-body">
+
+                    <div class="card-body">
                         <label >Фото</label>
-                        <input v-model="form.photo" type="file"  class="form-control" name="photo" >
-                    </div>-->
+                        <!--                        <input :v-model="form.photo"  type="file" class="form-control">-->
+                        <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+                    </div>
+                    <!--                    <div class="card-body">
+                                            <label >Фото</label>
+                                            <input v-model="form.photo" type="file"  class="form-control" name="photo" >
+                                        </div>-->
+
                     <!-- /.card-body -->
-                    <button class="btn btn-success">Применить</button>
+                    <button type="submit" class="btn btn-success">Применить</button>
                     <!-- /.card-footer-->
                 </form>
             </div>
@@ -96,6 +103,11 @@
 <script>
 import {Link, useForm} from '@inertiajs/inertia-vue3';
 export default {
+    data(){
+        return {
+            file: ''
+        }
+    },
     props:{
         hackSkills:Array,
         combatSkills: Array,
@@ -104,6 +116,11 @@ export default {
     },
     components:{
         Link
+    },
+    methods: {
+        handleFileUpload(){
+            this.form.photo = this.$refs.file.files[0];
+        }
     },
     setup(props){
         const form = useForm(   {
@@ -115,15 +132,18 @@ export default {
             quests:props.hero.quests,
             hackSkills: null,
             combatSkills:null,
-            photo:props.hero.photo
+            photo:null
 
         });
 
         function update() {
-            form.put(route('heroes.update',props.hero.id))
+            console.log(form.photo);
+
+            form.post(route('heroes.update',props.hero.id))
         }
         return {form, update};
-    }
+    },
+
 }
 </script>
 

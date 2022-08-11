@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreateHeroHack;
+use App\Events\CreateHeroCombat;
+use App\Events\UpdateHeroCombat;
+use App\Events\UpdateHeroHack;
 use App\Models\CombatSkills;
 use App\Models\HackSkills;
 use App\Models\HeroCombat;
 use App\Models\Heroes;
+use App\Models\HeroHack;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -66,16 +71,16 @@ class HeroesController extends Controller
             'rank'=> $request->rank,
             'bio'=> $request->bio,
             'quests'=> $request->quests,
-            'hack_skills_id'=> $request->hackSkills,
-            'combat_skills_id'=> $request->combatSkills,
             'photo' => $photo ?? '',
         ]);
 
-        HeroCombat::create([
-            'combat_skill_id' => $request->combatSkills,
-            'hero_id' => $hero->id
-        ]);
+            $combat = $request->combatSkills;
+            $hack = $request->hackSkills;
+            $her = $hero->id;
 
+        event(new CreateHeroCombat($combat,$her));
+
+        event(new CreateHeroHack($her,$hack));
 
         return redirect()->route('heroes.index');
     }
@@ -88,10 +93,16 @@ class HeroesController extends Controller
      */
     public function show(Heroes $hero)
     {
-
+        $combat = $hero->heroHack()->get();
+        $hack  =  $hero->heroCombat()->get();
+        $CSkills = $hero->CombatSkills()->get();
+        $HSkills = $hero->HackSkills()->get();
+        dd($HSkills);
         return Inertia::render('Heroes/Show',[
             'hero' => $hero,
-            'title' => 'Детальная страница Героя'
+            'title' => 'Детальная страница Героя',
+            'combatSkills' => $combat,
+            'hackSkills' => $hack
         ]);
     }
 
@@ -125,17 +136,25 @@ class HeroesController extends Controller
      */
     public function update(Request $request, Heroes $hero)
     {
-        $hero->update([
-            'name' => $request->name,
-            'faculty' => $request->faculty,
-            'course' => $request->course,
-            'rank'=> $request->rank,
-            'bio'=> $request->bio,
-            'quests'=> $request->quests,
-            'hack_skills'=> $request->hackSkills,
-            'combat_skills'=> $request->combatSkills,
+
+        if($request->hasFile('photo')){
+            $photo =  $request->file('photo')->store('img');
+        }
+            $hero->update([
+            'name' => $request->name ?? $hero->name,
+            'faculty' => $request->faculty ?? $hero->faculty,
+            'course' => $request->course ?? $hero->course,
+            'rank'=> $request->rank ?? $hero->rank,
+            'bio'=> $request->bio ?? $hero->bio,
+            'quests'=> $request->quests ?? $hero->quests,
             'photo' => $photo ?? '',
         ]);
+        $combat = $request->combatSkills;
+        $hack = $request->hackSkills;
+        $her = $hero->id;
+        event(new UpdateHeroCombat($combat,$her));
+        event( new UpdateHeroHack($hack,$her));
+
         return redirect()->route('heroes.index');
     }
 
@@ -147,6 +166,8 @@ class HeroesController extends Controller
      */
     public function destroy(Heroes $hero)
     {
+
         $hero->delete();
+
     }
 }

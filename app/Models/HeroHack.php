@@ -10,8 +10,18 @@ class HeroHack extends Model
     use HasFactory;
 
     protected $fillable = [
-        'hack_skill_id',
+        'hack_skills_id',
         'hero_id',
         'amount'
     ];
+
+    public function HackSkills(){
+
+        return  $this->HasMany(HackSkills::class,'id','hack_skills_id');
+    }
+
+    public function Heroes(){
+
+        return $this->belongsTo(Heroes::class,'hero_id','id');
+    }
 }
