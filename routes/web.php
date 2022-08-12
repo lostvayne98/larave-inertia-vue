@@ -32,6 +32,8 @@ Route::group(['prefix' => 'admin'],function(){
             'update'
         ]);
         Route::post('/heroes/{hero}','App\Http\Controllers\HeroesController@update')->name('heroes.update');
+        //Повышения кол-во
+        Route::post('/users/update-amount/{heroCombat}','App\Http\Controllers\UserController@updateAmountCombat')->name('update.amountCombat');
 
 
     });

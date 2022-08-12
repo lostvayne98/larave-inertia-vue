@@ -93,16 +93,24 @@ class HeroesController extends Controller
      */
     public function show(Heroes $hero)
     {
-        $combat = $hero->heroHack()->get();
-        $hack  =  $hero->heroCombat()->get();
+        // amount
+        $hack = $hero->heroHack()->get();
+
+        // amount
+        $combat  =  $hero->heroCombat()->get();
+        //название скилла
         $CSkills = $hero->CombatSkills()->get();
+        //название скилла
         $HSkills = $hero->HackSkills()->get();
-        dd($HSkills);
+
+
         return Inertia::render('Heroes/Show',[
             'hero' => $hero,
             'title' => 'Детальная страница Героя',
-            'combatSkills' => $combat,
-            'hackSkills' => $hack
+            'combatSkills' => $CSkills,
+            'hackSkills' => $HSkills,
+            'hackAmount' => $hack,
+            'combatAmount' => $combat
         ]);
     }
 
@@ -158,12 +166,9 @@ class HeroesController extends Controller
         return redirect()->route('heroes.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
+
     public function destroy(Heroes $hero)
     {
 

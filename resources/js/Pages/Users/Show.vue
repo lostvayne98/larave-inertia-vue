@@ -47,12 +47,15 @@
                 {{user.password_admin}}
             </td>
             </tr>
-            <div v-if="user.hero_id != null">
+            </tbody>
+        </table>
+            <table class="table table-bordered table-striped"  v-if="user.hero_id != null">
+                <tbody>
             <tr >
                 <th>
                     Герой
                 </th>
-                <td>
+                <td style="width: 907px;">
                     {{hero.name}}
                 </td>
             </tr>
@@ -105,10 +108,17 @@
 
             <tr>
                 <th>
-                    Хак Скиллы
+                    Хак скилл
                 </th>
-                <td>
-                    {{hero.hack_skills}}
+                <td v-for="hackSkill in hackSkills" :key="hackSkill.id">
+                    {{hackSkill.name}}
+                <th>
+                    Кол-во
+                </th>
+                <th v-for="hack in amountHacks" :key="hack.id">
+                    {{hack.amount}}
+                </th>
+
                 </td>
 
             </tr>
@@ -117,6 +127,14 @@
                 </th>
                 <td>
                     {{hero.combat_skills}}
+                 <th>
+                Кол-во
+                </th>
+
+                 <th v-for="combat in amountCombats" :key="combat.id" >
+                     {{combat.amount}}
+                     <button  class="btn btn-success" @click="updateAmountCombat(combat.id)"> Добавить</button>
+                 </th>
                 </td>
             <tr>
 
@@ -146,12 +164,16 @@
                     {{hero.firewall}}
                 </td>
             </tr>
-            </div>
+
+                </tbody>
+            </table>
+        <table>
+            <tbody class="table table-bordered table-striped">
             <tr>
 <th>
 Изменения
 </th>
-<td>
+<td    style="width: 907px;" >
     <div class="btn-group">
         <Link :href="route('users.edit',user.id)" class="btn btn-default">Изменить пользователя</Link>
     </div>
@@ -165,15 +187,37 @@
 </div>
 </template>
 <script>
-import {Link} from '@inertiajs/inertia-vue3';
+import {Link, useForm} from '@inertiajs/inertia-vue3';
 export default {
     components:{
         Link
     },
+    data(){
+        return {
+            com: ''
+        }
+    },
     props:{
         user:Object,
         title:String,
-        hero:Object
+        hero:Object,
+        combatSkills:Array,
+        hackSkills:Array,
+        amountHacks:Array,
+        amountCombats:Array
+    },
+
+
+    methods:{
+        updateAmountCombat(id){
+
+
+                this.$inertia.post(this.route('update.amountCombat',id))
+
+        }
     }
+
+
+
 }
 </script>

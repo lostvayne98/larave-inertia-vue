@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\UpdateHero;
+use App\Models\HeroCombat;
 use App\Models\Heroes;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -83,14 +84,26 @@ class UserController extends Controller
     public function show(User $user)
     {
         if($user->hero_id != null){
-        $hero = Heroes::where('user_id','=',$user->id)->first();
+        $hero =$user->Heroes()->first();
 
+            // amount
+            $hack = $hero->heroHack()->get();
 
+            // amount
+            $combat  =  $hero->heroCombat()->get();
+            //название скилла
+            $CSkills = $hero->CombatSkills()->get();
+            //название скилла
+            $HSkills = $hero->HackSkills()->get();
 
         return Inertia::render('Users/Show',[
             'title' => $user->name,
             'user' => $user,
-            'hero' => $hero
+            'hero' => $hero,
+            'combatSkills' => $CSkills,
+            'hackSkills' => $HSkills,
+            'amountHacks' => $hack,
+            'amountCombats' => $combat
         ]);
 
         }
@@ -100,6 +113,24 @@ class UserController extends Controller
             ]);
 
     }
+
+    public function updateAmountHack(Request $request,Heroes  $hero){
+        $hero->heroHack()->update([
+            'amount' => $request->amountHack
+        ]);
+
+    }
+    public function updateAmountCombat(Request $request,HeroCombat $heroCombat){
+
+     $com =   $heroCombat->amount;
+     $sum = $com  ;
+     $sum++;
+        $heroCombat->update([
+           'amount' => $sum
+        ]);
+
+    }
+
 
     /**
      * Show the form for editing the specified resource.

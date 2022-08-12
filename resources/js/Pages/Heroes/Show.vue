@@ -84,8 +84,15 @@
                         <th>
                             Хак скилл
                         </th>
-                        <td v-for="hackSkill in hackSkills">
-                            {{hackSkill.amount}}
+                        <td v-for="hackSkill in hackSkills" :key="hackSkill.id">
+                            {{hackSkill.name}}
+                        <th>
+                            Кол-во
+                        </th>
+                        <th v-for="hack in hackAmount" :key="hack.id">
+                            {{hack.amount}}
+                        </th>
+
                         </td>
 
                     </tr>
@@ -94,11 +101,16 @@
                             Обычные скиллы
                         </th>
                         <td v-for="combatSkill in combatSkills">
-                            {{combatSkill.amount}}
+                            {{combatSkill.name}}
+                        <th>
+                            Кол-во
+                        </th>
+                        <th v-for="combat in combatAmount">
+                            {{combat.amount}}
+                        </th>
+
                         </td>
-                        <td v-for="combatSkill in combatSkills">
-                            {{combatSkill.amount}}
-                        </td>
+
                     </tr>
                     <tr>
                         <th>
@@ -151,7 +163,9 @@ export default {
         hero:Object,
         title:String,
         combatSkills:Array,
-        hackSkills:Array
+        hackSkills:Array,
+        hackAmount:Array,
+        combatAmount:Array
     }
 }
 </script>
