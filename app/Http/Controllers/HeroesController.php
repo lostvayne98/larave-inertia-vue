@@ -17,11 +17,7 @@ use Inertia\Inertia;
 
 class HeroesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $heroes = Heroes::all();
@@ -33,11 +29,7 @@ class HeroesController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $hackSkills = HackSkills::all();
@@ -53,12 +45,7 @@ class HeroesController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         if($request->hasFile('photo')){
@@ -85,12 +72,7 @@ class HeroesController extends Controller
         return redirect()->route('heroes.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Heroes $hero)
     {
         // amount
@@ -114,12 +96,7 @@ class HeroesController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Heroes $hero)
     {
         $hackSkills = HackSkills::all();
@@ -135,13 +112,7 @@ class HeroesController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Heroes $hero)
     {
 
@@ -164,6 +135,38 @@ class HeroesController extends Controller
         event( new UpdateHeroHack($hack,$her));
 
         return redirect()->route('heroes.index');
+    }
+
+    public function incrementLife(Heroes $hero){
+        $life = $hero->life;
+        $life++;
+        $hero->update([
+            'life' => $life,
+            'energy' => $life,
+            'firewall' => $life
+        ]);
+
+    }
+    public function incrementEnergy(Heroes $hero){
+        $energy = $hero->energy;
+        $energy++;
+        $hero->update([
+
+            'energy' => $energy,
+
+        ]);
+
+    }
+
+    public function incrementFirewall(Heroes $hero){
+        $firewall = $hero->firewall;
+        $firewall++;
+        $hero->update([
+
+            'firewall' => $firewall,
+
+        ]);
+
     }
 
 

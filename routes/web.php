@@ -33,12 +33,22 @@ Route::group(['prefix' => 'admin'],function(){
         ]);
         Route::post('/heroes/{hero}','App\Http\Controllers\HeroesController@update')->name('heroes.update');
         //Повышения кол-во combat
-        Route::post('/users/update-amount/{heroCombat}','App\Http\Controllers\UserController@updateAmountCombat')->name('update.amountCombat');
+        Route::post('/users/increment-amountCombat/{heroCombat}','App\Http\Controllers\UserController@incrementAmountCombat')->name('increment.amountCombat');
         //Уменьшение кол-во combat
-        Route::post('/users/decrement-amount/{heroCombat}','App\Http\Controllers\UserController@decrementAmountCombat')->name('decrement.amountCombat');
-
-        Route::post('/users/increment-amount/{herohack}','App\Http\Controllers\UserController@incrementAmountHack')->name('increment.amountHack');
-
+        Route::post('/users/decrement-amountCombat/{heroCombat}','App\Http\Controllers\UserController@decrementAmountCombat')->name('decrement.amountCombat');
+        //Повышения кол-во hack
+        Route::post('/users/increment-amountHack/{herohack}','App\Http\Controllers\UserController@incrementAmountHack')->name('increment.amountHack');
+        //Повышения кол-во hack
+        Route::post('/users/decrement-amountHack/{herohack}','App\Http\Controllers\UserController@decrementAmountHack')->name('decrement.amountHack');
+        //Повышение жизни.энергии и firewall
+        Route::post('/users/increment-life/{hero}','App\Http\Controllers\HeroesController@incrementLife')->name('increment.life');
+        Route::post('/users/decrement-life/{hero}','App\Http\Controllers\HeroesController@decrementLife')->name('decrement.life');
+        //Повышение энергии
+        Route::post('/users/increment-energy/{hero}','App\Http\Controllers\HeroesController@incrementEnergy')->name('increment.energy');
+        Route::post('/users/decrement-energy/{hero}','App\Http\Controllers\HeroesController@decrementEnergy')->name('decrement.energy');
+        //повышение firewall
+        Route::post('/users/increment-firewall/{hero}','App\Http\Controllers\HeroesController@incrementFirewall')->name('increment.firewall');
+        Route::post('/users/decrement-firewall/{hero}','App\Http\Controllers\HeroesController@decrementFirewall')->name('decrement.firewall');
     });
 });
 

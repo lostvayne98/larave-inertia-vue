@@ -13,11 +13,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Crypt;
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
 
         public function index(){
 
@@ -30,11 +26,7 @@ class UserController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $heroes = Heroes::where('user_id','=',null)->get();
@@ -45,12 +37,6 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
@@ -76,12 +62,7 @@ class UserController extends Controller
 
         }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(User $user)
     {
         if($user->hero_id != null){
@@ -115,15 +96,8 @@ class UserController extends Controller
 
     }
 
-    public function updateAmountHack(Request $request,Heroes  $hero){
-        $hero->heroHack()->update([
-            'amount' => $request->amountHack
-        ]);
 
-    }
-
-
-    public function updateAmountCombat(Request $request,HeroCombat $heroCombat){
+    public function incrementAmountCombat(Request $request,HeroCombat $heroCombat){
 
      $com =   $heroCombat->amount;
      $sum = $com  ;
@@ -152,6 +126,7 @@ class UserController extends Controller
     }
     public function decrementAmountHack(HeroHack $herohack){
 
+
         $com =  $herohack->amount;
         $com--;
         $herohack->update([
@@ -159,12 +134,8 @@ class UserController extends Controller
         ]);
 
     }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function edit(User $user)
     {
         $heroes = Heroes::where('user_id','=',null)->get();
@@ -207,12 +178,7 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(User $user)
     {
         $user->delete();

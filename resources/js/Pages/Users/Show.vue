@@ -110,7 +110,8 @@
                 <th>
                     Хак скилл
                 </th>
-                <td v-for="hackSkill in hackSkills" :key="hackSkill.id">
+                <td v-for="hackSkill in hackSkills" :key="hackSkill.id" style="display: flex;
+    justify-content: space-between;">
                     {{hackSkill.name}}
                 <th>
                     Кол-во
@@ -136,8 +137,9 @@
 
                  <th v-for="combat in amountCombats" :key="combat.id" >
                      {{combat.amount}}
+
+                     <button class="btn"  @click="incrementAmountCombat(combat.id)"> Добавить</button>
                      <button class="btn"  @click="decrementAmountCombat(combat.id)"> Понизить</button>
-                     <button class="btn"  @click="updateAmountCombat(combat.id)"> Добавить</button>
                  </th>
 
                 </td>
@@ -148,6 +150,7 @@
                 </th>
                 <td>
                     {{hero.life}}
+                    <button class="btn " style="margin-left:850px;" @click="incrementLife(hero.id)">Добавить</button>
                 </td>
             </tr>
             <tr>
@@ -157,6 +160,7 @@
                 </th>
                 <td>
                     {{hero.energy}}
+                    <button class="btn " style="margin-left:850px;" @click="incrementEnergy(hero.id)">Добавить</button>
                 </td>
             </tr>
             <tr>
@@ -167,6 +171,7 @@
                 </th>
                 <td>
                     {{hero.firewall}}
+                    <button class="btn " style="margin-left:850px;" @click="incrementFireWall(hero.id)">Добавить</button>
                 </td>
             </tr>
 
@@ -192,7 +197,7 @@
 </div>
 </template>
 <script>
-import {Link, useForm} from '@inertiajs/inertia-vue3';
+import {Link} from '@inertiajs/inertia-vue3';
 export default {
     components:{
         Link
@@ -214,23 +219,36 @@ export default {
 
 
     methods:{
-        updateAmountCombat(id){
+             incrementAmountCombat(id){
 
 
-                this.$inertia.post(this.route('update.amountCombat',id))
+                this.$inertia.post(this.route('increment.amountCombat',id))
 
     },
-    decrementAmountCombat(id){
+             decrementAmountCombat(id){
 
             this.$inertia.post(this.route('decrement.amountCombat',id))
         },
 
-        incrementAmountHack(id){
+             incrementAmountHack(id){
+
+
             this.$inertia.post((this.route('increment.amountHack',id)))
         },
 
-        decrementAmountHack(id){
+            decrementAmountHack(id){
+
+
             this.$inertia.post(this.route('decrement.amountHack',id))
+        },
+        incrementLife(id){
+                 this.$inertia.post(this.route('increment.life',id))
+        },
+        incrementEnergy(id){
+            this.$inertia.post(this.route('increment.energy',id))
+        },
+        incrementFireWall(id){
+            this.$inertia.post(this.route('increment.firewall',id))
         }
     }
 
