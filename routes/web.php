@@ -32,9 +32,12 @@ Route::group(['prefix' => 'admin'],function(){
             'update'
         ]);
         Route::post('/heroes/{hero}','App\Http\Controllers\HeroesController@update')->name('heroes.update');
-        //Повышения кол-во
+        //Повышения кол-во combat
         Route::post('/users/update-amount/{heroCombat}','App\Http\Controllers\UserController@updateAmountCombat')->name('update.amountCombat');
+        //Уменьшение кол-во combat
+        Route::post('/users/decrement-amount/{heroCombat}','App\Http\Controllers\UserController@decrementAmountCombat')->name('decrement.amountCombat');
 
+        Route::post('/users/increment-amount/{herohack}','App\Http\Controllers\UserController@incrementAmountHack')->name('increment.amountHack');
 
     });
 });

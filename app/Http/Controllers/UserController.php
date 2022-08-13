@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Jobs\UpdateHero;
 use App\Models\HeroCombat;
 use App\Models\Heroes;
+use App\Models\HeroHack;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -120,6 +121,8 @@ class UserController extends Controller
         ]);
 
     }
+
+
     public function updateAmountCombat(Request $request,HeroCombat $heroCombat){
 
      $com =   $heroCombat->amount;
@@ -130,8 +133,32 @@ class UserController extends Controller
         ]);
 
     }
+    public function decrementAmountCombat(HeroCombat $heroCombat){
+      $com =  $heroCombat->amount;
+      $com--;
+       $heroCombat->update([
+          'amount' =>$com
+       ]);
+    }
 
+    public function incrementAmountHack(HeroHack $herohack){
 
+        $com =  $herohack->amount;
+        $com++;
+        $herohack->update([
+            'amount' =>$com
+        ]);
+
+    }
+    public function decrementAmountHack(HeroHack $herohack){
+
+        $com =  $herohack->amount;
+        $com--;
+        $herohack->update([
+            'amount' =>$com
+        ]);
+
+    }
     /**
      * Show the form for editing the specified resource.
      *

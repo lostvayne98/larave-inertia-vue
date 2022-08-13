@@ -117,6 +117,8 @@
                 </th>
                 <th v-for="hack in amountHacks" :key="hack.id">
                     {{hack.amount}}
+                    <button class="btn"  @click="incrementAmountHack(hack.id)"> Добавить</button>
+                    <button class="btn"  @click="decrementAmountHack(hack.id)"> Понизить</button>
                 </th>
 
                 </td>
@@ -125,16 +127,19 @@
                 <th>
                     Обычные скиллы
                 </th>
-                <td>
-                    {{hero.combat_skills}}
+                <td v-for="combatSkill in combatSkills" :key="combatSkill.id" style="display: flex;
+    justify-content: space-between;">
+                    {{combatSkill.name}}
                  <th>
                 Кол-во
                 </th>
 
                  <th v-for="combat in amountCombats" :key="combat.id" >
                      {{combat.amount}}
-                     <button  class="btn btn-success" @click="updateAmountCombat(combat.id)"> Добавить</button>
+                     <button class="btn"  @click="decrementAmountCombat(combat.id)"> Понизить</button>
+                     <button class="btn"  @click="updateAmountCombat(combat.id)"> Добавить</button>
                  </th>
+
                 </td>
             <tr>
 
@@ -214,6 +219,18 @@ export default {
 
                 this.$inertia.post(this.route('update.amountCombat',id))
 
+    },
+    decrementAmountCombat(id){
+
+            this.$inertia.post(this.route('decrement.amountCombat',id))
+        },
+
+        incrementAmountHack(id){
+            this.$inertia.post((this.route('increment.amountHack',id)))
+        },
+
+        decrementAmountHack(id){
+            this.$inertia.post(this.route('decrement.amountHack',id))
         }
     }
 
