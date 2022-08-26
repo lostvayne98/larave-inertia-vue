@@ -6,6 +6,7 @@ use App\Events\UpdateHeroCombat;
 use App\Models\HeroCombat;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\DB;
 
 class UpdateHeroCombatListener
 {
@@ -18,9 +19,9 @@ class UpdateHeroCombatListener
      */
     public function handle(UpdateHeroCombat $event)
     {
-        HeroCombat::update([
+        DB::table('hero_combats')->update([
             'hero_id' => $event->her,
-            'combat_skills_id' => $event->combat
+            'combat_skills_id' => $event->v
         ]);
     }
 }

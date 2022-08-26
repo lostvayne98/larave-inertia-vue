@@ -62,20 +62,27 @@
                         <input v-model="form.quests" type="text"  class="form-control" name="quests" >
                     </div>
                     <div class="card-body">
-                        <label >Хак скиллы</label>
-                        <select v-model="form.hackSkills" type="text"  class="form-control" name="hackSkills" >
-
-                            <option v-for="HackSkill in hackSkills" :key="HackSkill.id " :value="HackSkill.id">{{HackSkill.name}}</option>
-                        </select>
+                        <label > Скиллы</label>
+                        <div  v-for="(hacks, index) in hack" class="card-body">
+                            <label>Хак скилл: {{ index }}
+                                <select v-model="form.hackSkills[index]" type="text"  class="form-control">
+                                    <option selected disabled class="">Выберите скилл</option>
+                                    <option v-for="hackSkill in hackSkills" :key="hackSkill.id" :value="hackSkill.id"> {{hackSkill.name}}</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div  v-for="(guest, index) in guests" class="card-body">
+                            <label>Обычный скилл: {{ index }}
+                                <select v-model="form.combatSkills[index]" type="text"  class="form-control">
+                                    <option selected disabled class="">Выберите скилл</option>
+                                    <option v-for="combatSkill in combatSkills" :key="combatSkill.id" :value="combatSkill.id"> {{combatSkill.name}}</option>
+                                </select>
+                            </label>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <label >Обычные скиллы</label>
-                        <select v-model="form.combatSkills" type="text"  class="form-control">
 
-                            <option v-for="combatSkill in combatSkills" :key="combatSkill.id" :value="combatSkill.id"> {{combatSkill.name}}</option>
-                        </select>
-                    </div>
-
+                    <i class="fa fa-plus-circle" aria-hidden="true" @click="addInput()">Обычный скилл</i>
+                    <i class="fa fa-plus-circle" aria-hidden="true" @click="addHack()">Хак скилл</i>
                     <div class="card-body">
                         <label >Фото</label>
                         <!--                        <input :v-model="form.photo"  type="file" class="form-control">-->
@@ -105,7 +112,9 @@ import {Link, useForm} from '@inertiajs/inertia-vue3';
 export default {
     data(){
         return {
-            file: ''
+            file: '',
+            guests: [],
+            hack: []
         }
     },
     props:{
@@ -120,7 +129,15 @@ export default {
     methods: {
         handleFileUpload(){
             this.form.photo = this.$refs.file.files[0];
-        }
+        },
+        addInput() {
+            console.log('q');
+            this.guests.push('New guest');
+        },
+        addHack () {
+            console.log('q');
+            this.hack.push('New guest');
+        },
     },
     setup(props){
         const form = useForm(   {
@@ -130,8 +147,8 @@ export default {
             rank:props.hero.rank,
             bio:props.hero.rank,
             quests:props.hero.quests,
-            hackSkills: null,
-            combatSkills:null,
+            hackSkills: props.hackSkills,
+            combatSkills:props.combatSkills,
             photo:null
 
         });

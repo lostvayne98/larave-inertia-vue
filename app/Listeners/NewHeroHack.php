@@ -6,7 +6,7 @@ use App\Events\CreateHeroHack;
 use App\Models\HeroHack;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-
+use Illuminate\Support\Facades\DB;
 class NewHeroHack
 {
 
@@ -14,9 +14,11 @@ class NewHeroHack
     public function handle(CreateHeroHack $event)
     {
 
-        HeroHack::create([
-           'hack_skills_id'  => $event->hack,
-            'hero_id'  =>   $event->her
+        DB::table('hero_hacks')->insert([
+            'hack_skills_id' => $event->v,
+            'hero_id' => $event->her,
+
         ]);
+
     }
 }

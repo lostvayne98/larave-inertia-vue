@@ -15,7 +15,7 @@ class CreateHeroHack
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
 
-    public $her,$hack;
+    public $her,$v;
 
     /**
      * Create a new event instance.
@@ -25,7 +25,7 @@ class CreateHeroHack
     public function __construct($her,$hack)
     {
         $this->her = $her;
-        $this->hack = $hack;
+        $this->v = $hack;
 
     }
 

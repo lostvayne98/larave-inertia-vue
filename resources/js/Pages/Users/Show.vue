@@ -108,7 +108,7 @@
 
             <tr>
                 <th>
-                    Хак скилл
+                    Хак скиллы
                 </th>
                 <td v-for="hackSkill in hackSkills" :key="hackSkill.id" style="display: flex;
     justify-content: space-between;">

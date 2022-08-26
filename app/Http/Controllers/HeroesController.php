@@ -14,7 +14,7 @@ use App\Models\HeroHack;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-
+use Illuminate\Support\Facades\DB;
 class HeroesController extends Controller
 {
 
@@ -48,9 +48,11 @@ class HeroesController extends Controller
 
     public function store(Request $request)
     {
+
         if($request->hasFile('photo')){
             $photo =  $request->file('photo')->store('img');
         }
+
        $hero =  Heroes::create([
             'name' => $request->name,
             'faculty' => $request->faculty,
@@ -61,13 +63,23 @@ class HeroesController extends Controller
             'photo' => $photo ?? '',
         ]);
 
-            $combat = $request->combatSkills;
+            $combats = $request->combatSkills;
+
             $hack = $request->hackSkills;
+
             $her = $hero->id;
 
-        event(new CreateHeroCombat($combat,$her));
+        foreach ($combats as $k => $v) {
 
-        event(new CreateHeroHack($her,$hack));
+            event(new CreateHeroCombat($v,$her));
+
+        }
+
+        foreach ($hack as $k => $v) {
+
+            event(new CreateHeroHack($her,$v));
+        }
+
 
         return redirect()->route('heroes.index');
     }
@@ -128,11 +140,23 @@ class HeroesController extends Controller
             'quests'=> $request->quests ?? $hero->quests,
             'photo' => $photo ?? '',
         ]);
-        $combat = $request->combatSkills;
+
+        $combats = $request->combatSkills;
+
         $hack = $request->hackSkills;
+
         $her = $hero->id;
-        event(new UpdateHeroCombat($combat,$her));
-        event( new UpdateHeroHack($hack,$her));
+
+        foreach ($combats as $k => $v) {
+
+            event(new UpdateHeroCombat($v,$her));
+
+        }
+
+        foreach ($hack as $k => $v) {
+
+            event(new UpdateHeroHack($her,$v));
+        }
 
         return redirect()->route('heroes.index');
     }

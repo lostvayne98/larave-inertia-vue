@@ -15,13 +15,13 @@ class UpdateHeroHack
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
 
-    public $her,$hack;
+    public $her,$v;
 
 
     public function __construct($hack,$her)
     {
         $this->her = $her;
-        $this->hack = $hack;
+        $this->v = $hack;
     }
 
 }

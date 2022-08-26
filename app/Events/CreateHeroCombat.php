@@ -14,11 +14,11 @@ class CreateHeroCombat
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $combat,$her;
+    public $v,$her;
 
     public function __construct($combat,$her)
     {
-        $this->combat = $combat;
+        $this->v = $combat;
         $this->her = $her;
 
     }
