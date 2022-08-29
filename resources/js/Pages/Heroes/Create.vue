@@ -136,7 +136,7 @@ export default {
             this.form.photo = this.$refs.file.files[0];
         },
         addInput() {
-            console.log('q');
+            console.log('s');
             this.guests.push('New guest');
         },
         addHack () {
