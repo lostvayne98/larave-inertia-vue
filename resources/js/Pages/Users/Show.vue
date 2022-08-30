@@ -151,6 +151,7 @@
                 <td>
                     {{hero.life}}
                     <button class="btn " style="margin-left:850px;" @click="incrementLife(hero.id)">Добавить</button>
+                    <button class="btn " style="margin-left:850px;" @click="decrementLife(hero.id)">Понизить</button>
                 </td>
             </tr>
             <tr>
@@ -161,6 +162,7 @@
                 <td>
                     {{hero.energy}}
                     <button class="btn " style="margin-left:850px;" @click="incrementEnergy(hero.id)">Добавить</button>
+                    <button class="btn " style="margin-left:850px;" @click="decrementEnergy(hero.id)">Понизить</button>
                 </td>
             </tr>
             <tr>
@@ -172,6 +174,7 @@
                 <td>
                     {{hero.firewall}}
                     <button class="btn " style="margin-left:850px;" @click="incrementFireWall(hero.id)">Добавить</button>
+                    <button class="btn " style="margin-left:850px;" @click="decrementFireWall(hero.id)">Понизить</button>
                 </td>
             </tr>
 
@@ -241,14 +244,22 @@ export default {
 
             this.$inertia.post(this.route('decrement.amountHack',id))
         },
-        incrementLife(id){
+        incrementLife (id) {
                  this.$inertia.post(this.route('increment.life',id))
         },
-        incrementEnergy(id){
-            this.$inertia.post(this.route('increment.energy',id))
+        decrementLife (id) {
+            this.$inertia.post(this.route('decrement.life',id))
         },
-        incrementFireWall(id){
+        incrementEnergy (id) {
+            this.$inertia.post(this.route('increment.energy',id))
+        }, decrementEnergy (id) {
+            this.$inertia.post(this.route('decrement.energy',id))
+        },
+        incrementFireWall (id) {
             this.$inertia.post(this.route('increment.firewall',id))
+        },
+        decrementFireWall (id) {
+            this.$inertia.post(this.route('decrement.firewall',id))
         }
     }
 

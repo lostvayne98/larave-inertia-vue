@@ -147,8 +147,8 @@ export default {
             rank:props.hero.rank,
             bio:props.hero.rank,
             quests:props.hero.quests,
-            hackSkills: props.hackSkills,
-            combatSkills:props.combatSkills,
+            hackSkills: [],
+            combatSkills:[],
             photo:null
 
         });

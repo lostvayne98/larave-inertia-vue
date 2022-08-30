@@ -163,11 +163,31 @@ class HeroesController extends Controller
 
     public function incrementLife(Heroes $hero){
         $life = $hero->life;
+        $energy = $hero->energy;
+        $firewall = $hero->firewall;
+
+        $energy++;
+        $firewall++;
         $life++;
         $hero->update([
             'life' => $life,
-            'energy' => $life,
-            'firewall' => $life
+            'energy' => $energy,
+            'firewall' => $firewall
+        ]);
+
+    }
+    public function decrementLife(Heroes $hero){
+        $life = $hero->life;
+        $energy = $hero->energy;
+        $firewall = $hero->firewall;
+
+        $energy--;
+        $firewall--;
+        $life--;
+        $hero->update([
+            'life' => $life,
+            'energy' => $energy,
+            'firewall' => $firewall
         ]);
 
     }
@@ -181,10 +201,30 @@ class HeroesController extends Controller
         ]);
 
     }
+    public function decrementEnergy(Heroes $hero){
+        $energy = $hero->energy;
+        $energy--;
+        $hero->update([
+
+            'energy' => $energy,
+
+        ]);
+
+    }
 
     public function incrementFirewall(Heroes $hero){
         $firewall = $hero->firewall;
         $firewall++;
+        $hero->update([
+
+            'firewall' => $firewall,
+
+        ]);
+
+    }
+    public function decrementFirewall(Heroes $hero){
+        $firewall = $hero->firewall;
+        $firewall--;
         $hero->update([
 
             'firewall' => $firewall,
