@@ -233,6 +233,11 @@ class HeroesController extends Controller
 
     }
 
+    public function addHackSkill (Heroes $hero) {
+
+
+    }
+
 
 
 

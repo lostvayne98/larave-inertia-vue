@@ -51,130 +51,140 @@
         </table>
             <table class="table table-bordered table-striped"  v-if="user.hero_id != null">
                 <tbody>
-            <tr >
-                <th>
-                    Герой
-                </th>
-                <td style="width: 907px;">
-                    {{hero.name}}
-                </td>
-            </tr>
+                <tbody>
                 <tr>
-                <th>
-                    Факультет
-                </th>
-                <td>
-                    {{hero.faculty}}
-                </td>
-            </tr>
+                    <td>Герой</td>
+                    <td>{{hero.name}}</td>
+
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>Факультет</td>
+                    <td>{{hero.faculty}}</td>
+
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr>
+                    <td>Курсы</td>
+                    <td>{{hero.course}}</td>
+
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr>
+                    <td>Звание</td>
+                    <td>{{hero.rank}}</td>
+
+                </tr>
+                </tbody>
+
+
+                <tbody>
+                <tr>
+                    <td>Биография</td>
+                    <td>{{hero.bio}}</td>
+
+                </tr>
+                </tbody>
+
+
+                <tbody>
+                <tr>
+                    <td>Квесты</td>
+                    <td>{{hero.quests}}</td>
+
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr>
+                    <td>
+                        Хак скиллы
+                    </td>
+                    <td style="display:flex;">
+                        <div >
+                            <div v-for="hack in hackSkills " :key="hack.id" style="height: 100px">
+                                {{hack.name}}
+
+                            </div>
+                        </div>
+                        <div style="margin-left: 50px">
+                            <div v-for="amountHack in amountHacks" :key="amountHack.id" style="" >
+                                Кол:во    {{amountHack.amount}}
+                                <button class="btn " style="margin-left:850px;" @click="incrementAmountHack(amountHack.id)">Добавить</button>
+                                <button class="btn " style="margin-left:916px;" @click="decrementAmountHack(amountHack.id)">Понизить</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>
+                        Обычные скиллы
+                    </td>
+                    <td style="display:flex;">
+                        <div >
+                            <div v-for="combat in combatSkills " :key="combat.id" style="height: 100px">
+                                {{combat.name}}
+
+                            </div>
+                        </div>
+                        <div style="margin-left: 50px">
+                            <div v-for="amountCombat in amountCombats" :key="amountCombat.id">
+                                Кол:во    {{amountCombat.amount}}
+                                <button class="btn " style="margin-left:850px;" @click="incrementAmountCombat(amountCombat.id)">Добавить</button>
+                                <button class="btn " style="margin-left:916px;" @click="decrementAmountCombat(amountCombat.id)">Понизить</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
 
             <tr>
-                <th>
-                    Курсы
-                </th>
-                <td>
-                    {{hero.course}}
-                </td>
-            </tr>
-
-            <tr>
-                <th>
-                    Звание
-                </th>
-                <td>
-                    {{hero.rank}}
-                </td>
-            </tr>
-
-            <tr>
-                <th>
-                    Биография
-                </th>
 
                 <td>
-                    {{hero.bio}}
-                </td>
-            </tr>
+                    <th>Жизни</th>
 
-            <tr>
 
+                    <th>
+                        {{hero.life}}
+                    </th>
                 <th>
-                    Квесты
-                </th>
-                <td>
-                    {{hero.quests}}
-                </td>
-            </tr>
-
-            <tr>
-                <th>
-                    Хак скиллы
-                </th>
-                <td v-for="hackSkill in hackSkills" :key="hackSkill.id" style="display: flex;
-    justify-content: space-between;">
-                    {{hackSkill.name}}
-                <th>
-                    Кол-во
-                </th>
-                <th v-for="hack in amountHacks" :key="hack.id">
-                    {{hack.amount}}
-                    <button class="btn"  @click="incrementAmountHack(hack.id)"> Добавить</button>
-                    <button class="btn"  @click="decrementAmountHack(hack.id)"> Понизить</button>
-                </th>
-
-                </td>
-
-            </tr>
-                <th>
-                    Обычные скиллы
-                </th>
-                <td v-for="combatSkill in combatSkills" :key="combatSkill.id" style="display: flex;
-    justify-content: space-between;">
-                    {{combatSkill.name}}
-                 <th>
-                Кол-во
-                </th>
-
-                 <th v-for="combat in amountCombats" :key="combat.id" >
-                     {{combat.amount}}
-
-                     <button class="btn"  @click="incrementAmountCombat(combat.id)"> Добавить</button>
-                     <button class="btn"  @click="decrementAmountCombat(combat.id)"> Понизить</button>
-                 </th>
-
-                </td>
-            <tr>
-
-                <th>
-                    Жизни
-                </th>
-                <td>
-                    {{hero.life}}
                     <button class="btn " style="margin-left:850px;" @click="incrementLife(hero.id)">Добавить</button>
                     <button class="btn " style="margin-left:850px;" @click="decrementLife(hero.id)">Понизить</button>
+                    </th>
                 </td>
             </tr>
             <tr>
-
+                <td>
                 <th>
                     Энергия
                 </th>
-                <td>
-                    {{hero.energy}}
+                <th>{{hero.energy}}</th>
+                <th>
+
                     <button class="btn " style="margin-left:850px;" @click="incrementEnergy(hero.id)">Добавить</button>
                     <button class="btn " style="margin-left:850px;" @click="decrementEnergy(hero.id)">Понизить</button>
+                </th>
                 </td>
             </tr>
             <tr>
-
+                <td>
                 <th>
 
                     Firewall
                 </th>
+                <th>{{hero.firewall}}</th>
                 <td>
-                    {{hero.firewall}}
+
                     <button class="btn " style="margin-left:850px;" @click="incrementFireWall(hero.id)">Добавить</button>
                     <button class="btn " style="margin-left:850px;" @click="decrementFireWall(hero.id)">Понизить</button>
+                </td>
                 </td>
             </tr>
 

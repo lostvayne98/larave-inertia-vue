@@ -36,8 +36,12 @@ class LoginController extends Controller
      */
 
     public function redirectTo(){
-        if(auth()->user()->hasRole('admin')){
+        if (auth()->user()->hasRole('admin')) {
+
             return route('admin');
+
+        } else {
+            return route('welcome');
         }
     }
     public function __construct()
