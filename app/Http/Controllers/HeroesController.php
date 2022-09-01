@@ -233,8 +233,42 @@ class HeroesController extends Controller
 
     }
 
-    public function addHackSkill (Heroes $hero) {
+    public function addSkills (Heroes $hero) {
 
+        $hacks = HackSkills::all();
+
+        $combats = CombatSkills::all();
+
+
+
+        return Inertia::render('Heroes/AddHackSkill',[
+            'title' => 'Добавление скилла герою:'. $hero->name,
+            'hackSkills' => $hacks,
+            'combatSkills' =>$combats,
+            'hero' => $hero->id
+        ]);
+
+    }
+
+    public function submitAddSkills (Request $request,Heroes $hero) {
+        $id = $request->id;
+        $combats = $request->CombatSkills;
+        $hacks = $request->HackSkills;
+        if (!empty($combats)){
+
+            DB::table('hero_combat')->insert([
+               'combat_skills_id' => $combats,
+                'hero_id' => $id
+            ]);
+
+        }
+        if (!empty($hacks)) {
+            DB::table('hero_hacks')->insert([
+               'hack_skills_id' => $hacks,
+                'hero_id' => $hero->id
+            ]);
+        }
+            return 'успешно';
 
     }
 

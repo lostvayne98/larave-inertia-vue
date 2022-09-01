@@ -50,8 +50,9 @@ Route::group(['prefix' => 'admin'],function(){
         Route::post('/users/increment-firewall/{hero}','App\Http\Controllers\HeroesController@incrementFirewall')->name('increment.firewall');
         Route::post('/users/decrement-firewall/{hero}','App\Http\Controllers\HeroesController@decrementFirewall')->name('decrement.firewall');
 
-        //Добавление хак скилла
-        Route::get('/users/add-hack-skill','App\Http\Controllers\UserController@addHackSkill')->name('add.hack.skills');
+        //Добавление  скилла уже созданному герою
+        Route::get('/users/add-hack-skill/{hero}','App\Http\Controllers\HeroesController@addSkills')->name('add.skills');
+        Route::post('/users/add-hack-skill/{hero}','App\Http\Controllers\HeroesController@submitAddSkills')->name('submit.add.skills');
     });
 });
 

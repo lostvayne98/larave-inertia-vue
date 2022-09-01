@@ -143,6 +143,7 @@
                         <td>
                             <div class="btn-group">
                                 <Link :href="route('heroes.edit',hero.id)" class="btn btn-default">Изменить Героя</Link>
+                                <Link :href="route('add.skills',hero.id)" class="btn btn-default">Добавить хак скилл</Link>
                             </div>
                         </td>
                     </tr>
