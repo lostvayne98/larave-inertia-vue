@@ -117,6 +117,7 @@
                                 Кол:во    {{amountHack.amount}}
                                 <button class="btn " style="margin-left:850px;" @click="incrementAmountHack(amountHack.id)">Добавить</button>
                                 <button class="btn " style="margin-left:916px;" @click="decrementAmountHack(amountHack.id)">Понизить</button>
+                                <button class="btn btn-danger " style="margin-left:916px;" @click="destroyHeroHack(amountHack.id)">Удалить</button>
                             </div>
                         </div>
                     </td>
@@ -139,6 +140,7 @@
                                 Кол:во    {{amountCombat.amount}}
                                 <button class="btn " style="margin-left:850px;" @click="incrementAmountCombat(amountCombat.id)">Добавить</button>
                                 <button class="btn " style="margin-left:916px;" @click="decrementAmountCombat(amountCombat.id)">Понизить</button>
+                                <button class="btn btn-danger " style="margin-left:916px;" @click="destroyHeroCombat(amountCombat.id)">Удалить</button>
                             </div>
                         </div>
                     </td>
@@ -270,6 +272,16 @@ export default {
         },
         decrementFireWall (id) {
             this.$inertia.post(this.route('decrement.firewall',id))
+        },
+        destroyHeroHack (id) {
+            if(confirm('Вы Уверены,что хотите удалить скилл героя?')) {
+                this.$inertia.post(this.route('destroy.hero.hack', id))
+            }
+        },
+        destroyHeroCombat (id) {
+            if(confirm('Вы Уверены,что хотите удалить скилл героя?')) {
+                this.$inertia.post(this.route('destroy.hero.combat', id))
+            }
         }
     }
 

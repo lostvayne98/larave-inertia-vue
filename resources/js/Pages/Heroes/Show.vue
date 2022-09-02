@@ -25,117 +25,134 @@
                 </div>
                 <table class="table table-bordered table-striped">
                     <tbody>
+                    <tbody>
                     <tr>
-                        <th>
-                            id
-                        </th>
-                        <td>
-                            {{hero.id}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            Фотография
-                        </th>
-                        <td>
-                            <img  style="width:50px;height:50px" :src="`/storage/${hero.photo}`">
-                        </td>
-                    </tr>
-                    <th>
-                        Имя
-                    </th>
-                    <td>
-                        {{hero.name}}
-                    </td>
-                    <tr>
-                        <th>
-                            Курс
-                        </th>
-                        <td>
-                            {{hero.course}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            Звание
-                        </th>
-                        <td>
-                            {{hero.rank}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            Биография
-                        </th>
-                        <td>
-                            {{hero.bio}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            Квесты
-                        </th>
-                        <td>
-                            {{hero.quests}}
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th>
-                            Хак скилл
-                        </th>
-                        <td v-for="hackSkill in hackSkills" :key="hackSkill.id">
-                            {{hackSkill.name}}
-                        <th>
-                            Кол-во
-                        </th>
-                        <th v-for="hack in hackAmount" :key="hack.id">
-                            {{hack.amount}}
-                        </th>
-
-                        </td>
+                        <td>Герой</td>
+                        <td>{{hero.name}}</td>
 
                     </tr>
+                    </tbody>
+                    <tbody>
                     <tr>
-                        <th>
+                        <td>Факультет</td>
+                        <td>{{hero.faculty}}</td>
+
+                    </tr>
+                    </tbody>
+
+                    <tbody>
+                    <tr>
+                        <td>Курсы</td>
+                        <td>{{hero.course}}</td>
+
+                    </tr>
+                    </tbody>
+
+                    <tbody>
+                    <tr>
+                        <td>Звание</td>
+                        <td>{{hero.rank}}</td>
+
+                    </tr>
+                    </tbody>
+
+
+                    <tbody>
+                    <tr>
+                        <td>Биография</td>
+                        <td>{{hero.bio}}</td>
+
+                    </tr>
+                    </tbody>
+
+
+                    <tbody>
+                    <tr>
+                        <td>Квесты</td>
+                        <td>{{hero.quests}}</td>
+
+                    </tr>
+                    </tbody>
+
+                    <tbody>
+                    <tr>
+                        <td>
+                            Хак скиллы
+                        </td>
+                        <td style="display:flex;">
+                            <div >
+                                <div v-for="hack in hackSkills " :key="hack.id" style="height: 100px">
+                                    {{hack.name}}
+
+                                </div>
+                            </div>
+                            <div style="margin-left: 50px">
+                                <div v-for="amountHack in amountHacks" :key="amountHack.id" style="" >
+                                    Кол:во    {{amountHack.amount}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                        <td>
                             Обычные скиллы
-                        </th>
-                        <td v-for="combatSkill in combatSkills">
-                            {{combatSkill.name}}
-                        <th>
-                            Кол-во
-                        </th>
-                        <th v-for="combat in combatAmount">
-                            {{combat.amount}}
-                        </th>
-
                         </td>
+                        <td style="display:flex;">
+                            <div >
+                                <div v-for="combat in combatSkills " :key="combat.id" style="height: 100px">
+                                    {{combat.name}}
 
+                                </div>
+                            </div>
+                            <div style="margin-left: 50px">
+                                <div v-for="amountCombat in amountCombats" :key="amountCombat.id">
+                                    Кол:во    {{amountCombat.amount}}
+                                </div>
+                            </div>
+                        </td>
                     </tr>
+                    </tbody>
+
                     <tr>
-                        <th>
-                            Жизни
-                        </th>
+
                         <td>
+                        <th>Жизни</th>
+
+
+                        <th>
                             {{hero.life}}
+                        </th>
                         </td>
                     </tr>
                     <tr>
+                        <td>
                         <th>
                             Энергия
                         </th>
-                        <td>
-                            {{hero.energy}}
+                        <th>{{hero.energy}}</th>
+                        <th>
+
+                        </th>
                         </td>
                     </tr>
                     <tr>
+                        <td>
                         <th>
+
                             Firewall
                         </th>
+                        <th>{{hero.firewall}}</th>
                         <td>
-                            {{hero.firewall}}
+
+                        </td>
                         </td>
                     </tr>
+
+                    </tbody>
+                </table>
+                <table>
                     <tr>
                         <th>
                             Изменения
@@ -148,8 +165,8 @@
                         </td>
                     </tr>
 
-                    </tbody>
                 </table>
+
             </div>
         </section>
     </div>

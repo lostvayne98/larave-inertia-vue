@@ -252,23 +252,27 @@ class HeroesController extends Controller
 
     public function submitAddSkills (Request $request,Heroes $hero) {
         $id = $request->id;
+
         $combats = $request->CombatSkills;
+
         $hacks = $request->HackSkills;
         if (!empty($combats)){
-
-            DB::table('hero_combat')->insert([
-               'combat_skills_id' => $combats,
+            foreach ($combats as $k => $v)
+            DB::table('hero_combats')->insert([
+               'combat_skills_id' => $v,
                 'hero_id' => $id
             ]);
 
         }
         if (!empty($hacks)) {
+            foreach ($hacks as $k => $v)
+
             DB::table('hero_hacks')->insert([
-               'hack_skills_id' => $hacks,
+               'hack_skills_id' => $v,
                 'hero_id' => $hero->id
             ]);
         }
-            return 'успешно';
+            return redirect()->route('heroes.index');
 
     }
 
@@ -280,5 +284,14 @@ class HeroesController extends Controller
 
         $hero->delete();
 
+    }
+
+    public function destroyHeroHack (HeroHack $heroHack) {
+
+        $heroHack->delete();
+    }
+    public function destroyHeroCombat (HeroCombat $heroCombat) {
+
+        $heroCombat->delete();
     }
 }

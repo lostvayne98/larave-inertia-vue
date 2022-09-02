@@ -51,8 +51,11 @@ Route::group(['prefix' => 'admin'],function(){
         Route::post('/users/decrement-firewall/{hero}','App\Http\Controllers\HeroesController@decrementFirewall')->name('decrement.firewall');
 
         //Добавление  скилла уже созданному герою
-        Route::get('/users/add-hack-skill/{hero}','App\Http\Controllers\HeroesController@addSkills')->name('add.skills');
-        Route::post('/users/add-hack-skill/{hero}','App\Http\Controllers\HeroesController@submitAddSkills')->name('submit.add.skills');
+        Route::get('/heroes/add-hack-skill/{hero}','App\Http\Controllers\HeroesController@addSkills')->name('add.skills');
+        Route::post('/heroes/add-hack-skill/{hero}','App\Http\Controllers\HeroesController@submitAddSkills')->name('submit.add.skills');
+
+        Route::post('users/destroy-hero-hack/{heroHack}','App\Http\Controllers\HeroesController@destroyHeroHack')->name('destroy.hero.hack');
+        Route::post('users/destroy-hero-combat/{heroCombat}','App\Http\Controllers\HeroesController@destroyHeroCombat')->name('destroy.hero.combat');
     });
 });
 
