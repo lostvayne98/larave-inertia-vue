@@ -41,5 +41,9 @@ class Heroes extends Model
         return $this->hasManyThrough(HackSkills::class,HeroHack::class,'hero_id','id','id','hack_skills_id');
     }
 
+    public function Rases() {
+      return $this->hasMany(Raise::class,'hero_id','id');
+    }
+
 
 }

@@ -195,14 +195,14 @@
         <table>
             <tbody class="table table-bordered table-striped">
             <tr>
-<th>
-Изменения
-</th>
-<td    style="width: 907px;" >
-    <div class="btn-group">
-        <Link :href="route('users.edit',user.id)" class="btn btn-default">Изменить пользователя</Link>
-    </div>
-</td>
+            <th>
+            Изменения
+            </th>
+            <td    style="width: 907px;" >
+                <div class="btn-group">
+                    <Link :href="route('users.edit',user.id)" class="btn btn-default">Изменить пользователя</Link>
+                </div>
+            </td>
             </tr>
 
             </tbody>

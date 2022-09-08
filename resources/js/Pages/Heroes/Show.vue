@@ -79,7 +79,7 @@
                         <td>
                             Хак скиллы
                         </td>
-                        <td style="display:flex;">
+                        <td style="display:flex;  width: 997px;">
                             <div >
                                 <div v-for="hack in hackSkills " :key="hack.id" style="height: 100px">
                                     {{hack.name}}
@@ -115,41 +115,27 @@
                     </tr>
                     </tbody>
 
+                    <tbody>
                     <tr>
+                        <td>Жизни</td>
+                        <td>{{hero.life}}</td>
 
-                        <td>
-                        <th>Жизни</th>
-
-
-                        <th>
-                            {{hero.life}}
-                        </th>
-                        </td>
                     </tr>
+                    </tbody>
+                    <tbody>
                     <tr>
-                        <td>
-                        <th>
-                            Энергия
-                        </th>
-                        <th>{{hero.energy}}</th>
-                        <th>
+                        <td>Энергия</td>
+                        <td>{{hero.energy}}</td>
 
-                        </th>
-                        </td>
                     </tr>
+                    </tbody>
+                    <tbody>
                     <tr>
-                        <td>
-                        <th>
+                        <td>Firewall</td>
+                        <td>{{hero.firewall}}</td>
 
-                            Firewall
-                        </th>
-                        <th>{{hero.firewall}}</th>
-                        <td>
-
-                        </td>
-                        </td>
                     </tr>
-
+                    </tbody>
                     </tbody>
                 </table>
                 <table>

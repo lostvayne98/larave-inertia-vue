@@ -15,7 +15,15 @@ class Raise extends Model
         'skill',
     ];
 
+    public function Heroes() {
 
+        return $this->belongsTo(Heroes::class,'hero_id','id');
 
+    }
+
+    public function Users() {
+
+        return $this->belongsTo(User::class,'user_id','id');
+    }
 
 }

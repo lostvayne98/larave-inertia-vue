@@ -18,7 +18,8 @@ class CreateRaisesTable extends Migration
             $table->string('hero_id');
             $table->string('user_id');
             $table->string('description');
-            $table->string('skill');
+            $table->string('app');
+            $table->boolean('application');
             $table->timestamps();
         });
     }

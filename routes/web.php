@@ -56,6 +56,13 @@ Route::group(['prefix' => 'admin'],function(){
 
         Route::post('users/destroy-hero-hack/{heroHack}','App\Http\Controllers\HeroesController@destroyHeroHack')->name('destroy.hero.hack');
         Route::post('users/destroy-hero-combat/{heroCombat}','App\Http\Controllers\HeroesController@destroyHeroCombat')->name('destroy.hero.combat');
+        Route::get('application-users','App\Http\Controllers\RaiseController@index')->name('application');
+
+        Route::get('user','App\Http\Controllers\Api\ApiController@ApiUser')->name('apiUser');
+        //Заявка на повышение скилла
+        Route::post('create-application-skill','App\Http\Controllers\Api\ApiController@apiApp');
+        //Заявка на повышение характеристик
+        Route::post('create-application-character','App\Http\Controllers\Api\ApiController@apiChar');
     });
 });
 
