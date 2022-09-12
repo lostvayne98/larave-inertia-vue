@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Raise extends Model
+class RaiseHack extends Model
 {
     use HasFactory;
     protected $fillable = [
         'hero_id',
         'user_id',
         'description',
-        'skill',
+        'hack_skill',
+        'application'
     ];
 
     public function Heroes() {
@@ -26,4 +27,8 @@ class Raise extends Model
         return $this->belongsTo(User::class,'user_id','id');
     }
 
+    public function HackSkills(){
+
+        return $this->belongsTo(HackSkills::class,'skill_hack','id');
+    }
 }

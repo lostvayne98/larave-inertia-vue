@@ -59,10 +59,20 @@ Route::group(['prefix' => 'admin'],function(){
         Route::get('application-users','App\Http\Controllers\RaiseController@index')->name('application');
 
         Route::get('user','App\Http\Controllers\Api\ApiController@ApiUser')->name('apiUser');
-        //Заявка на повышение скилла
-        Route::post('create-application-skill','App\Http\Controllers\Api\ApiController@apiApp');
-        //Заявка на повышение характеристик
-        Route::post('create-application-character','App\Http\Controllers\Api\ApiController@apiChar');
+        //Заявка на повышение хак скилла
+        Route::get('raise-hack','App\Http\Controllers\RaiseController@raiseHack')->name('raise.hack');
+        Route::get('raise-combat','App\Http\Controllers\RaiseController@raiseCombat')->name('raise.combat');
+        Route::get('raise-add-hack','App\Http\Controllers\RaiseController@AddHack')->name('raise.add.hack');
+        Route::get('raise-add-combat','App\Http\Controllers\RaiseController@AddCombat')->name('raise.add.combat');
+        //принять
+        Route::post('accept-raise-hack/{raise}','App\Http\Controllers\RaiseController@accept')->name('accept.hack');
+        Route::post('accept-raise-combat/{combat}','App\Http\Controllers\RaiseController@acceptCombat')->name('accept.combat');
+        Route::post('destroy-raise-hack/{raise}','App\Http\Controllers\RaiseController@destroy')->name('destroy.hack');
+        Route::post('destroy-raise-hack/{raise}','App\Http\Controllers\RaiseController@destroyCombat')->name('destroy.combat');
+        Route::post('destroy-raise-hack/{raise}','App\Http\Controllers\RaiseController@destroyCombat')->name('destroy.add.combat');
+        Route::post('accept-add-hack/{skill}','App\Http\Controllers\RaiseController@acceptAddHack')->name('accept.add.hack');
+        Route::post('accept-add-combat/{skill}','App\Http\Controllers\RaiseController@acceptAddCombat')->name('accept.add.combat');
+
     });
 });
 

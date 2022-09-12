@@ -46,12 +46,10 @@
                     <td>
                         {{raise.description}}
                     </td>
-                    <td>
-                        {{raise.application}}
-                    </td>
+
                     <td>
                         <div class="btn-group">
-                        <button class="btn btn-success" @click="accept(raise.id)">Принять</button>
+                            <button class="btn btn-success" @click="accept(raise.id)">Принять</button>
                         </div>
                         <div class="btn group">
                             <button class="btn btn-danger" @click="destroy(raise.id)">Отменить</button>
@@ -61,9 +59,9 @@
 
                     </tbody>
                 </table>
-<!--                <div v-if="users <15">
-                    <Pagination :links="users.links"/>
-                </div>-->
+                <!--                <div v-if="users <15">
+                                    <Pagination :links="users.links"/>
+                                </div>-->
             </div>
         </div>
     </div>
@@ -82,13 +80,16 @@ export default {
         destroy(id){
 
             if(confirm('Вы Уверены,что хотите отменить заявку?')){
-                this.$inertia.post(this.route('destroy.hack',id))
+                this.$inertia.post(this.route('destroy.add.combat',id))
             }
         },
         accept (id) {
-            this.$inertia.post(this.route('accept.hack',id))
+            this.$inertia.post(this.route('accept.add.hack',id))
         }
     },
+    created() {
+        console.log(this.$props.raises)
+    }
 
 
 }

@@ -98,16 +98,30 @@
                                 </Link>
                             </li>
                             <li class="nav-item">
-                                <Link class="nav-link" :href="route('application')" >
+                                <Link class="nav-link" :href="route('raise.hack')" >
 
-                                    <p>   Заявки на повышение Скиллов </p>
+                                    <p>   Заявки на повышение Хак Скиллов </p>
 
                                 </Link>
                             </li>
                             <li class="nav-item">
-                                <Link class="nav-link" :href="route('application')" >
+                                <Link class="nav-link" :href="route('raise.combat')" >
 
-                                    <p>   Заявки на повышение характеристик </p>
+                                    <p>   Заявки на повышение Обычных скиллов </p>
+
+                                </Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" :href="route('raise.add.hack')" >
+
+                                    <p>   Заявки на увеличение Хак скиллов </p>
+
+                                </Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" :href="route('raise.add.combat')" >
+
+                                    <p>   Заявки на увеличение Обычных скиллов </p>
 
                                 </Link>
                             </li>

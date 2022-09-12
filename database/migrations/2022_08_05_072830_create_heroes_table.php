@@ -24,7 +24,7 @@ class CreateHeroesTable extends Migration
             $table->string('quests')->nullable();
            /* $table->string('hack_skills_id');
             $table->string('combat_skills_id');*/
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->string('life')->default(1);
             $table->string('energy')->default(1);
             $table->string('firewall')->default(1);
