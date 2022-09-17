@@ -17,7 +17,7 @@ class UserController extends Controller
 
         public function index(){
 
-            $users = User::orderByDesc('created_at')->CursorPaginate(5);
+            $users = User::orderByDesc('created_at')->role('player')->CursorPaginate(5);
 
         return Inertia::render('Users/Index',[
             'title' => 'Пользователи',

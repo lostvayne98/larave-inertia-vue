@@ -9,7 +9,10 @@ use App\Models\HeroCombat;
 use App\Models\Heroes;
 use App\Models\HeroHack;
 use App\Models\Raise;
+use App\Models\RaiseChars;
 use App\Models\RaiseCombat;
+use App\Models\RaiseEnergy;
+use App\Models\RaiseFirewall;
 use App\Models\RaiseHack;
 use App\Models\RaiseSkillCombat;
 use App\Models\User;
@@ -19,6 +22,84 @@ use Inertia\Inertia;
 use App\Models\RaiseSkill;
 class RaiseController extends Controller
 {
+    //повышение жизней
+    public function chars()
+    {
+        $raise = RaiseChars::with('Heroes', 'Users')->get();
+        return Inertia::render('Raise/AddAmountChar', [
+            'raises' => $raise,
+            'title' => 'Повышение жизни'
+        ]);
+    }
+
+    //повышение firewall
+    public function charsFirewall()
+    {
+        $raise = RaiseFirewall::with('Heroes', 'Users')->get();
+
+        return Inertia::render('Raise/AddAmountFirewall', [
+            'raises' => $raise,
+            'title' => 'Повышение Firewall'
+        ]);
+    }
+
+    //повышение firewall
+    public function charsEnergy()
+    {
+        $raise = RaiseEnergy::with('Heroes', 'Users')->get();
+
+        return Inertia::render('Raise/AddAmountFirewall', [
+            'raises' => $raise,
+            'title' => 'Повышение Энергии'
+        ]);
+    }
+
+
+        public function AddLife(RaiseChars $char){
+
+        $hero = Heroes::where('id',$char->hero_id)->first();
+        $life = $hero->life;
+        $life++;
+        $hero->update([
+            'life' => $life
+        ]);
+            $char->delete();
+        }
+
+        //Повышение энергии
+    public function AddEnergy(RaiseEnergy $char){
+        $hero = Heroes::where('id',$char->hero_id)->first();
+        $energy = $hero->energy;
+        $energy++;
+        $hero->update([
+            'life' => $energy
+        ]);
+
+        $char->delete();
+    }
+    //Повышение firewall
+    public function AddFirewall(RaiseFirewall $char){
+        $hero = Heroes::where('id',$char->hero_id)->first();
+        $firewall = $hero->firewall;
+        $firewall++;
+        $hero->update([
+            'life' => $firewall
+        ]);
+        $char->delete();
+    }
+
+    public function destroyLife(RaiseChars $char){
+
+        $char->delete();
+    }
+    public function DestroyEnergy(RaiseEnergy $char){
+        $char->delete();
+    }
+    public function DestroyFirewall(RaiseFirewall $char){
+        $char->delete();
+    }
+
+
     //заявки на хак скиллы повышение +1
     public function raiseHack () {
 
@@ -38,6 +119,8 @@ class RaiseController extends Controller
 
         }
 
+    //Увеличение скиллов
+
         public function AddHack(){
 
         $addSkill = RaiseSkill::with('Heroes','Users','HackSkills')->get();
@@ -47,6 +130,8 @@ class RaiseController extends Controller
         ]);
 
         }
+
+        //Увеличение скиллов
     public function AddCombat(){
 
         $addSkill = RaiseSkillCombat::with('Heroes','Users','CombatSkills')->get();
@@ -69,7 +154,7 @@ class RaiseController extends Controller
         ]);
             $skill->delete();
         }
-
+//принять ув.скилла
     public function acceptAddCombat(RaiseSkillCombat $skill){
 
 
@@ -100,7 +185,7 @@ class RaiseController extends Controller
 
 
 
-    //принять
+    //принять увеличение
 
     public function accept(Request $request,RaiseHack $raise){
 
@@ -126,8 +211,16 @@ class RaiseController extends Controller
 
         $combat->delete();
     }
+    public function destroyHack(RaiseCombat $combat){
+
+        $combat->delete();
+    }
 
     public function destroyAddHack(RaiseSkill $skill){
+
+        $skill->delete();
+    }
+    public function destroyAddCombat(RaiseSkill $skill){
 
         $skill->delete();
     }

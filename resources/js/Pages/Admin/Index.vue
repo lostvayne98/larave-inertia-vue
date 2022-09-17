@@ -1,5 +1,4 @@
 <template>
-
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -10,58 +9,58 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><Link :href="route('admins.create')">Создать пользователя</Link>
+                            </li>
 
                         </ol>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
         </section>
+
+        <!-- Main content -->
+
+
         <div class="row">
             <div class="col-sm-12">
                 <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" aria-describedby="example1_info">
                     <thead>
                     <th>ID</th>
-                    <th>Имя Пользователя</th>
-                    <th>Герой</th>
-                    <th>Скилл</th>
-                    <th>Описание</th>
+                    <th>Имя</th>
+                    <th>Фото</th>
 
                     </thead>
-                    <tbody  v-for="raise in raises " :key="raise.id">
+                    <tbody  v-for="admin in admins" :key="admin.id">
 
                     <td>
-                        {{raise.id}}
-                    </td>
-
-                    <td>
-                        {{raise.users.name }}
-                    </td>
-                    <td>
-                        {{raise.heroes.name}}
-                    </td>
-                    <td>
-                        {{raise.hack_skills.name}}
+                        {{admin.id}}
                     </td>
 
                     <td>
-                        {{raise.description}}
+                        {{admin.name }}
                     </td>
+                    <td>
+                        2
+                    </td>
+
 
                     <td>
                         <div class="btn-group">
-                            <button class="btn btn-success" @click="accept(raise.id)">Принять</button>
-                        </div>
-                        <div class="btn group">
-                            <button class="btn btn-danger" @click="destroy(raise.id)">Отменить</button>
+                            <Link :href="route('admins.show',admin.id)" class="btn btn-default"><i class="fas fa-eye"></i></Link>
 
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn-danger" @click="destroy(admin.id)">Удалить</button>
                         </div>
                     </td>
 
                     </tbody>
                 </table>
-                <!--                <div v-if="users <15">
-                                    <Pagination :links="users.links"/>
-                                </div>-->
+                <div v-if="admins <15">
+                    <Pagination :links="admins.links"/>
+                </div>
             </div>
         </div>
     </div>
@@ -74,23 +73,16 @@ export default {
     components:{ Link , Pagination},
     props: {
         title: String,
-        raises: Array,
+        admins: Array
     },
     methods:{
         destroy(id){
 
-            if(confirm('Вы Уверены,что хотите отменить заявку?')){
-                this.$inertia.post(this.route('destroy.add.hack',id))
+            if(confirm('Вы Уверены,что хотите удалить пользователя?')){
+                this.$inertia.delete(this.route('admins.destroy',id))
             }
-        },
-        accept (id) {
-            this.$inertia.post(this.route('accept.add.hack',id))
         }
-    },
-    created() {
-        console.log(this.$props.raises)
     }
-
 
 }
 </script>

@@ -23,7 +23,7 @@
                     <th>ID</th>
                     <th>Имя Пользователя</th>
                     <th>Герой</th>
-                    <th>Скилл</th>
+                    <th>Характеристика</th>
                     <th>Описание</th>
 
                     </thead>
@@ -40,7 +40,7 @@
                         {{raise.heroes.name}}
                     </td>
                     <td>
-                        {{raise.hack_skills.name}}
+                        {{raise.heroes.energy}}
                     </td>
 
                     <td>
@@ -80,11 +80,11 @@ export default {
         destroy(id){
 
             if(confirm('Вы Уверены,что хотите отменить заявку?')){
-                this.$inertia.post(this.route('destroy.add.hack',id))
+                this.$inertia.post(this.route('destroy.energy',id))
             }
         },
         accept (id) {
-            this.$inertia.post(this.route('accept.add.hack',id))
+            this.$inertia.post(this.route('add.energy',id))
         }
     },
     created() {

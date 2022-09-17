@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RaiseChar extends Model
+class RaiseEnergy extends Model
 {
     use HasFactory;
     protected $fillable = [
         'hero_id',
         'user_id',
         'description',
-        'char',
+        'app',
     ];
 
     public function Heroes() {

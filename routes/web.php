@@ -18,7 +18,9 @@ Route::get('', function () {
 Route::group(['prefix' => 'admin'],function(){
     Route::group(['middleware' => ['auth','role:admin']],function() {
 
-     /*   Route::get('/', 'App\Http\Controllers\AdminLteController@admin')->name('admin');*/
+
+        Route::resource('admins','App\Http\Controllers\Admincontroller');
+        /*   Route::get('/', 'App\Http\Controllers\AdminLteController@admin')->name('admin');*/
         //Вывод шаблона
         Route::get('/','App\Http\Controllers\AdminLteController@index')->name('admin');
         //Вывод пользователей CRUD
@@ -67,11 +69,27 @@ Route::group(['prefix' => 'admin'],function(){
         //принять
         Route::post('accept-raise-hack/{raise}','App\Http\Controllers\RaiseController@accept')->name('accept.hack');
         Route::post('accept-raise-combat/{combat}','App\Http\Controllers\RaiseController@acceptCombat')->name('accept.combat');
-        Route::post('destroy-raise-hack/{raise}','App\Http\Controllers\RaiseController@destroy')->name('destroy.hack');
-        Route::post('destroy-raise-hack/{raise}','App\Http\Controllers\RaiseController@destroyCombat')->name('destroy.combat');
-        Route::post('destroy-raise-hack/{raise}','App\Http\Controllers\RaiseController@destroyCombat')->name('destroy.add.combat');
         Route::post('accept-add-hack/{skill}','App\Http\Controllers\RaiseController@acceptAddHack')->name('accept.add.hack');
         Route::post('accept-add-combat/{skill}','App\Http\Controllers\RaiseController@acceptAddCombat')->name('accept.add.combat');
+
+        //удалить
+        Route::post('destroy-raise-hack/{raise}','App\Http\Controllers\RaiseController@destroy')->name('destroy.hack');
+        Route::post('destroy-raise-hack/{raise}','App\Http\Controllers\RaiseController@destroyCombat')->name('destroy.combat');
+        Route::post('destroy-raise-add-hack/{skill}','App\Http\Controllers\RaiseController@destroyAddHack')->name('destroy.add.combat');
+        Route::post('destroy-raise-add-combat/{skill}','App\Http\Controllers\RaiseController@destroyAddCombat')->name('destroy.add.hack');
+
+        //Заявки на повышение характеристик
+        Route::get('amount-char-life','App\Http\Controllers\RaiseController@chars')->name('chars.life');
+        Route::get('amount-char-firewall','App\Http\Controllers\RaiseController@charsFirewall')->name('chars.Firewall');
+        Route::get('amount-char-energy','App\Http\Controllers\RaiseController@charsEnergy')->name('chars.Energy');
+        //Принять
+        Route::post('add-amount-char-life/{char}','App\Http\Controllers\RaiseController@AddLife')->name('add.life');
+        Route::post('add-amount-char-firewall/{char}','App\Http\Controllers\RaiseController@AddFirewall')->name('add.firewall');
+        Route::post('add-amount-char-energy/{char}','App\Http\Controllers\RaiseController@AddEnergy')->name('add.energy');
+        //Удалить
+        Route::post('delete-char-life/{char}','App\Http\Controllers\RaiseController@DestroyLife')->name('destroy.life');
+        Route::post('delete-char-firewall/{char}','App\Http\Controllers\RaiseController@DestroyFirewall')->name('destroy.firewall');
+        Route::post('delete-char-energy/{char}','App\Http\Controllers\RaiseController@DestroyEnergy')->name('destroy.energy');
 
     });
 });
@@ -82,8 +100,24 @@ Route::group(['middleware' => 'auth'],function(){
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-    Route::get('/' , 'App\Http\Controllers\HomeController@welcome')->name('welcome');
+    Route::get('/' , 'App\Http\Controllers\Api\ApiController@user')->name('welcome');
 
+//добавление кол-во хак скилла
+    Route::post('add-mount-hack','App\Http\Controllers\Api\ApiController@addAmounthack');
+
+    //добавление кол-во комбат скилла
+    Route::post('add-mount-combat','App\Http\Controllers\Api\ApiController@addAmountCombat');
+
+    //добавить хак скилл
+    Route::post('add-hack','App\Http\Controllers\Api\ApiController@addHack');
+    //добавить комбат скилл
+    Route::post('add-combat','App\Http\Controllers\Api\ApiController@addCombat');
+    //увеличение кол-ва жизней
+    Route::post('add-life','App\Http\Controllers\Api\ApiController@addLife');
+    //увеличение кол-ва энергии
+    Route::post('add-energy','App\Http\Controllers\Api\ApiController@addEnergy');
+    //увеличение кол-ва энергии
+    Route::post('add-firewall','App\Http\Controllers\Api\ApiController@addFirewall');
 });
 
 

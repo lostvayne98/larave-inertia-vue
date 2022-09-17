@@ -75,6 +75,12 @@
 
                                 </Link>
                             </li>
+                            <li class="nav-item">
+                                <Link class="nav-link" :href="route('admins.index')" >
+                                    Администраторы
+
+                                </Link>
+                            </li>
 
                             <li class="nav-item">
                                 <Link class="nav-link" :href="route('combat_skills.index')" >
@@ -97,49 +103,64 @@
 
                                 </Link>
                             </li>
-                            <li class="nav-item">
-                                <Link class="nav-link" :href="route('raise.hack')" >
 
-                                    <p>   Заявки на повышение Хак Скиллов </p>
 
-                                </Link>
-                            </li>
-                            <li class="nav-item">
-                                <Link class="nav-link" :href="route('raise.combat')" >
-
-                                    <p>   Заявки на повышение Обычных скиллов </p>
-
-                                </Link>
-                            </li>
-                            <li class="nav-item">
-                                <Link class="nav-link" :href="route('raise.add.hack')" >
-
-                                    <p>   Заявки на увеличение Хак скиллов </p>
-
-                                </Link>
-                            </li>
-                            <li class="nav-item">
-                                <Link class="nav-link" :href="route('raise.add.combat')" >
-
-                                    <p>   Заявки на увеличение Обычных скиллов </p>
-
-                                </Link>
-                            </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-chart-pie"></i>
+
                                     <p>
-                                        Charts
+                                        Заявки
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="../charts/chartjs.html" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>ChartJS</p>
-                                        </a>
+                                        <Link class="nav-link" :href="route('raise.hack')" >
+
+                                            <p>   Заявки на повышение Хак Скиллов </p>
+
+                                        </Link>
                                     </li>
+                                    <li class="nav-item">
+                                        <Link class="nav-link" :href="route('raise.combat')" >
+
+                                            <p>   Заявки на повышение Обычных скиллов </p>
+
+                                        </Link>
+                                    </li>
+                                    <li class="nav-item">
+                                        <Link class="nav-link" :href="route('raise.add.hack')" >
+
+                                            <p>   Заявки на увеличение Хак скиллов </p>
+
+                                        </Link>
+                                    </li>
+                                    <li class="nav-item">
+                                        <Link class="nav-link" :href="route('raise.add.combat')" >
+
+                                            <p>   Заявки на увеличение Обычных скиллов </p>
+
+                                        </Link>
+                                    </li>
+                                    <li class="nav-item">
+                                        <Link class="nav-link" :href="route('chars.life')" >
+
+                                            <p>   Заявки на увеличение Жизней </p>
+
+                                        </Link>
+                                    </li><li class="nav-item">
+                                    <Link class="nav-link" :href="route('chars.Firewall')" >
+
+                                        <p>   Заявки на увеличение Firewall </p>
+
+                                    </Link>
+                                </li><li class="nav-item">
+                                    <Link class="nav-link" :href="route('chars.Energy')" >
+
+                                        <p>   Заявки на увеличение Энергии </p>
+
+                                    </Link>
+                                </li>
 
 
                                 </ul>

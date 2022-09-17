@@ -44,6 +44,11 @@ class Heroes extends Model
     public function Rases() {
       return $this->hasMany(Raise::class,'hero_id','id');
     }
+    public function user(){
+
+      return $this->HasOne(User::class,'hero_id');
+
+  }
 
 
 }
