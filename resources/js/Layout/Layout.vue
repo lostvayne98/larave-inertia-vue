@@ -117,28 +117,28 @@
                                     <li class="nav-item">
                                         <Link class="nav-link" :href="route('raise.hack')" >
 
-                                            <p>   Заявки на повышение Хак Скиллов </p>
+                                            <p>   Заявки на повышение кол-во Хак Скиллов </p>
 
                                         </Link>
                                     </li>
                                     <li class="nav-item">
                                         <Link class="nav-link" :href="route('raise.combat')" >
 
-                                            <p>   Заявки на повышение Обычных скиллов </p>
+                                            <p>   Заявки на повышение кол-во Обычных скиллов </p>
 
                                         </Link>
                                     </li>
                                     <li class="nav-item">
                                         <Link class="nav-link" :href="route('raise.add.hack')" >
 
-                                            <p>   Заявки на увеличение Хак скиллов </p>
+                                            <p>   Заявки на добавление Хак скиллов </p>
 
                                         </Link>
                                     </li>
                                     <li class="nav-item">
                                         <Link class="nav-link" :href="route('raise.add.combat')" >
 
-                                            <p>   Заявки на увеличение Обычных скиллов </p>
+                                            <p>   Заявки на добавление Обычных скиллов </p>
 
                                         </Link>
                                     </li>

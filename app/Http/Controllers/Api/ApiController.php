@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\HeroResource;
 use App\Http\Resources\UserResource;
+use App\Models\CombatSkills;
+use App\Models\HackSkills;
 use App\Models\Heroes;
 use App\Models\Raise;
 use App\Models\RaiseChar;
@@ -141,6 +143,22 @@ class ApiController extends Controller
             'message' => 'ok'
         ]);
 
+    }
+
+    public function getHackSkills(){
+       $hackSkills = HackSkills::all();
+
+       return response()->json([
+           'hack_skills' => $hackSkills
+       ]);
+    }
+
+    public function getCombatSkills(){
+       $combatSkills = CombatSkills::all();
+
+       return response()->json([
+           'combatSkills' => $combatSkills
+       ]);
     }
 
 

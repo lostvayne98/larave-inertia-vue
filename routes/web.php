@@ -60,8 +60,7 @@ Route::group(['prefix' => 'admin'],function(){
         Route::post('users/destroy-hero-combat/{heroCombat}','App\Http\Controllers\HeroesController@destroyHeroCombat')->name('destroy.hero.combat');
         Route::get('application-users','App\Http\Controllers\RaiseController@index')->name('application');
 
-        Route::get('user','App\Http\Controllers\Api\ApiController@ApiUser')->name('apiUser');
-        //Заявка на повышение хак скилла
+        //Заявка на повышение  скилла
         Route::get('raise-hack','App\Http\Controllers\RaiseController@raiseHack')->name('raise.hack');
         Route::get('raise-combat','App\Http\Controllers\RaiseController@raiseCombat')->name('raise.combat');
         Route::get('raise-add-hack','App\Http\Controllers\RaiseController@AddHack')->name('raise.add.hack');
@@ -98,6 +97,8 @@ Route::group(['prefix' => 'admin'],function(){
 Auth::routes();
 Route::group(['middleware' => 'auth'],function(){
 
+    Route::get('user','App\Http\Controllers\Api\ApiController@ApiUser')->name('apiUser');
+
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::get('/' , 'App\Http\Controllers\Api\ApiController@user')->name('welcome');
@@ -118,7 +119,37 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('add-energy','App\Http\Controllers\Api\ApiController@addEnergy');
     //увеличение кол-ва энергии
     Route::post('add-firewall','App\Http\Controllers\Api\ApiController@addFirewall');
+
+    //Вывод скиллов
+    Route::get('hack_skills','App\Http\Controllers\Api\ApiController@getHackSkills');
+    Route::get('combat_skills','App\Http\Controllers\Api\ApiController@getCombatSkills');
 });
 
-
+/* user method:GET
+Вывод пользователя с его героем  характеристиками,скиллами и какое у них кол-во
+ * add-mount-hack method: POST
+ * Данные: description (Описание),
+ * skill_hack (Название скилла)
+ *
+ * add-mount-combat method: POST
+ * description (Описание),
+ * skill_combat (Название скилла)
+ *
+ * add-hack method POST
+ * description (Описание),
+ * skill (id)
+ *
+ * add-combat method POST
+ * description (Описание),
+ * skill_combat (id скилла)
+ *
+ * на повышение каких-либо определенных характеристик (жизней,энергии и т.п)
+ * нужно просто передать description,нужно подвесить к определенной кнопке и все
+ *
+ * hack_skills method:GET
+ * Вывод всех хак скиллов
+ *
+ * combat_skills method:Get
+ * Вывод всех обычных скиллов
+ * */
 
