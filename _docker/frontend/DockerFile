@@ -1,0 +1,10 @@
+FROM node:16
+
+RUN mkdir /usr/share/frontend
+WORKDIR /usr/share/frontend
+
+   COPY  package.json* /usr/share/frontend/
+
+   RUN npm install
+
+   CMD ["npm","start"]
