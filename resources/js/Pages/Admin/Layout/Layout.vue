@@ -1,6 +1,5 @@
 <template>
-    <!DOCTYPE html>
-    <html lang="en">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,6 +27,12 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
+
+                <div class="alert alert-success alert-dismissible" v-if="$page.props.message">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+
+                    {{$page.props.message}}
+                </div>
                 <!-- Navbar Search -->
                 <li class="nav-item">
                     <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -109,7 +114,7 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="height: 1200px">
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <div class="container-fluid">
@@ -170,7 +175,7 @@
 
 
     </body>
-    </html>
+
 </template>
 
 <script>

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Modules\Admin\User\Requests;
+namespace App\Modules\Admin\Heroes\Requests;
+use App\Modules\Admin\User\Models\User;
 use \Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class FilterRequest extends FormRequest
+class HeroesStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,15 +27,16 @@ class FilterRequest extends FormRequest
     public function rules()
     {
         return [
-            'created_at' => 'nullable | date',
-            'id' => 'nullable | String',
-            'orderBy' => 'nullable'
+            'name' => 'nullable | max:50',
+            'user_id' => 'exists:App\Modules\Admin\Heroes\Models\User,id | nullable',
+            'faculty' => 'String | nullable',
+            'course' => 'String  | nullable',
+            'rank' => 'String | nullable' ,
+            'photo' => 'image | nullable',
+            'combat_skills' => 'array | nullable',
+            'hack_skills' => 'array | nullable',
         ];
     }
 
 
-    public function validated($key = null, $default = null)
-    {
-        return  parent::validated($key, $default);
-    }
 }

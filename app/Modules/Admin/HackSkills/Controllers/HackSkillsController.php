@@ -2,85 +2,61 @@
 
 namespace App\Modules\Admin\HackSkills\Controllers;
 
+use App\Modules\Admin\ActionsCRUD\DeleteAction;
+use App\Modules\Admin\ActionsCRUD\StoreAction;
+use App\Modules\Admin\ActionsCRUD\UpdateAction;
+use App\Modules\Admin\HackSkills\Controllers\Actions\HackSkillStoreAction;
 use App\Modules\Admin\HackSkills\Models\HackSkill;
+use App\Modules\Admin\HackSkills\Requests\HackSkillsStoreRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Inertia\Inertia;
 
 class HackSkillsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return Inertia::render('Admin/HackSkills/Index',[
+            'skills' => HackSkill::query()->paginate(6)
+        ]);
     }
 
-    /**
-     * Create of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+        return Inertia::render('Admin/HackSkills/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(HackSkillsStoreRequest $request,HackSkill $skill,StoreAction $action)
     {
-        //
+        $action->store($skill,$request->validated());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Modules\Admin/HackSkills\Models\HackSkill  $hackSkill
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(HackSkill $hackSkill)
     {
-        //
+        return Inertia::render('Admin/HackSkills/Show',[
+            'skill' => $hackSkill
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Modules\Admin/HackSkills\Models\HackSkill  $hackSkill
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(HackSkill $hackSkill)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Modules\Admin/HackSkills\Models\HackSkill  $hackSkill
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, HackSkill $hackSkill)
+
+    public function update(Request $request, HackSkill $hackSkill,UpdateAction $action)
     {
-        //
+        $action->update($hackSkill,$request->all());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Modules\Admin/HackSkills\Models\HackSkill  $hackSkill
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(HackSkill $hackSkill)
+
+    public function destroy(HackSkill $hackSkill,DeleteAction $action)
     {
-        //
+        $action->delete($hackSkill);
     }
 }

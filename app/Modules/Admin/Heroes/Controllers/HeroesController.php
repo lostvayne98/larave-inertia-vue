@@ -2,85 +2,88 @@
 
 namespace App\Modules\Admin\Heroes\Controllers;
 
+use App\Modules\Admin\ActionsCRUD\DeleteAction;
+use App\Modules\Admin\ActionsCRUD\StoreAction;
+use App\Modules\Admin\ActionsCRUD\UpdateAction;
+use App\Modules\Admin\CombatSkills\Models\CombatSkills;
+use App\Modules\Admin\HackSkills\Models\HackSkill;
+use App\Modules\Admin\Heroes\Controllers\Actions\CreateHeroCombatSkillAction;
+use App\Modules\Admin\Heroes\Controllers\Actions\CreateHeroHackSkillAction;
 use App\Modules\Admin\Heroes\Models\Heroes;
+use App\Modules\Admin\Heroes\Requests\HeroesStoreRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Inertia\Inertia;
 
 class HeroesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $heroes = Heroes::query()->orderBy('id')->paginate(5);
+        return Inertia::render('Admin/Heroes/Index',[
+            'heroes' => $heroes
+        ]);
     }
 
-    /**
-     * Create of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+       $combatSkills =  CombatSkills::query()->orderBy('id')->get();
+       $hackSkills = HackSkill::query()->orderBy('id')->get();
+
+        return Inertia::render('Admin/Heroes/Create',[
+            'combats' => $combatSkills,
+            'hacks' => $hackSkills
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(HeroesStoreRequest $request,Heroes $heroes,
+                          StoreAction $action,
+                          CreateHeroCombatSkillAction $combatSkillAction,
+                          CreateHeroHackSkillAction $hackSkillAction)
     {
-        //
+        $data = $request->validated();
+        try {
+            $hero =  $action->store($heroes,$data);
+
+            $combatSkillAction->handle($hero,$data);
+
+            $hackSkillAction->handle($hero,$data);
+
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Modules\Admin/Heroes/\Models\Hero  $hero
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Hero $hero)
+
+    public function show(Heroes $hero)
     {
-        //
+        return Inertia::render('Admin/Heroes/Show',[
+            'hero' => $hero
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Modules\Admin/Heroes/\Models\Hero  $hero
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Hero $hero)
+
+    public function edit(Heroes $hero)
     {
-        //
+        return Inertia::render('Admin/Heroes/Update',[
+            'hero' => $hero
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Modules\Admin/Heroes/\Models\Hero  $hero
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Hero $hero)
+
+    public function update(Request $request, Heroes $hero,UpdateAction $action)
     {
-        //
+        $action->update($hero,$request->all());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Modules\Admin/Heroes/\Models\Hero  $hero
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Hero $hero)
+
+    public function destroy(Heroes $hero,DeleteAction $action)
     {
-        //
+        $action->delete($hero);
     }
 }

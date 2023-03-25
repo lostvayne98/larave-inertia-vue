@@ -2,8 +2,8 @@
     <Layout>
         <div class="card">
             <div class="card-header">
-                <Link :href="route('users.create')">
-                <button class="btn-default"> Создать пользователя </button>
+                <Link :href="route('heroes.create')">
+                    <button class="btn-default"> Создать героя </button>
                 </Link>
             </div>
 
@@ -21,12 +21,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="user in users.data" :key="user.id">
+                    <tr v-for="hero in heroes.data" :key="hero.id">
 
-                        <td><Link :href="route('users.show',user.id)">{{user.id}}</Link></td>
-                        <td>{{user.name}}</td>
+                        <td><Link :href="route('heroes.show',hero.id)">{{hero.id}}</Link></td>
+                        <td>{{hero.name}}</td>
                         <td> </td>
-                        <td> {{user.created_at}}</td>
+                        <td> {{hero.created_at}}</td>
 
 
                     </tr>
@@ -34,7 +34,7 @@
                 </table>
 
                 <Pagination
-                    :links="users"
+                    :links="heroes"
                     :route="route('users.index')"
                 />
             </div>
@@ -54,7 +54,7 @@ export default {
         Link
     },
     props: {
-        users:Array
+        heroes:Array
     },
     name: "Index",
 
@@ -62,11 +62,11 @@ export default {
         orderByDesk() {
             let page = window.location.search
             if (page == '?page') {
-                 page.substring(1)
+                page.substring(1)
             }
             if (location.href == route('users.index') + `/?orderBy=1`) {
 
-           return location.href = route('users.index') + `/?orderBy=0` + `&${page}`
+                return location.href = route('users.index') + `/?orderBy=0` + `&${page}`
             } else {
 
                 return location.href = route('users.index') + `/?orderBy=1` + `&${page}`

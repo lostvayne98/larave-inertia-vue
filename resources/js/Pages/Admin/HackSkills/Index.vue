@@ -2,8 +2,8 @@
     <Layout>
         <div class="card">
             <div class="card-header">
-                <Link :href="route('users.create')">
-                <button class="btn-default"> Создать пользователя </button>
+                <Link :href="route('hack-skills.create')">
+                    <button class="btn-default"> Создать Скилл </button>
                 </Link>
             </div>
 
@@ -21,12 +21,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="user in users.data" :key="user.id">
+                    <tr v-for="skill in skills.data" :key="user.id">
 
-                        <td><Link :href="route('users.show',user.id)">{{user.id}}</Link></td>
-                        <td>{{user.name}}</td>
+                        <td><Link :href="route('users.show',skill.id)">{{skill.id}}</Link></td>
+                        <td>{{skill.name}}</td>
                         <td> </td>
-                        <td> {{user.created_at}}</td>
+                        <td> {{skill.created_at}}</td>
 
 
                     </tr>
@@ -34,8 +34,8 @@
                 </table>
 
                 <Pagination
-                    :links="users"
-                    :route="route('users.index')"
+                    :links="skills"
+                    :route="route('hack-skills.index')"
                 />
             </div>
         </div>
@@ -54,7 +54,7 @@ export default {
         Link
     },
     props: {
-        users:Array
+        skills:Array
     },
     name: "Index",
 
@@ -62,11 +62,11 @@ export default {
         orderByDesk() {
             let page = window.location.search
             if (page == '?page') {
-                 page.substring(1)
+                page.substring(1)
             }
             if (location.href == route('users.index') + `/?orderBy=1`) {
 
-           return location.href = route('users.index') + `/?orderBy=0` + `&${page}`
+                return location.href = route('users.index') + `/?orderBy=0` + `&${page}`
             } else {
 
                 return location.href = route('users.index') + `/?orderBy=1` + `&${page}`

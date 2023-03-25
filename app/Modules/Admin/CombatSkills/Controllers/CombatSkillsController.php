@@ -2,85 +2,63 @@
 
 namespace App\Modules\Admin\CombatSkills\Controllers;
 
+use App\Modules\Admin\CombatSkills\Controllers\Actions\CombatSkillStoreAction;
+use App\Modules\Admin\CombatSkills\Controllers\Actions\CombatSkillUpdateAction;
 use App\Modules\Admin\CombatSkills\Models\CombatSkills;
-use Illuminate\Http\Request;
+use App\Modules\Admin\CombatSkills\Requests\CombatSkillStoreRequest;
+use App\Modules\Admin\CombatSkills\Requests\CombatSkillUpdateRequest;
 use App\Http\Controllers\Controller;
+use Inertia\Inertia;
 
 class CombatSkillsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+      $skills =  CombatSkills::query()->paginate(5);
+
+      return Inertia::render('Admin/CombatSkills/Index',[
+          'skills' => $skills
+      ]);
     }
 
-    /**
-     * Create of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+        return Inertia::render('Admin/CombatSkills/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(CombatSkillStoreRequest $request,CombatSkillStoreAction $action)
     {
-        //
+        $action->handle($request->validated());
+        return redirect()->route('combat-skills.index')->with(['message' => 'Успешно!']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Modules\Admin/CombatSkills\Models\CombatSkill  $combatSkill
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(CombatSkills $combatSkill)
     {
-        //
+        return Inertia::render('Admin/HackSkills/Show',[
+            'skill' => $combatSkill
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Modules\Admin/CombatSkills\Models\CombatSkill  $combatSkill
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(CombatSkills $combatSkill)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Modules\Admin/CombatSkills\Models\CombatSkill  $combatSkill
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, CombatSkills $combatSkill)
+
+    public function update(CombatSkillUpdateRequest $request, CombatSkills $combatSkill,CombatSkillUpdateAction $action)
     {
-        //
+        $action->handle($combatSkill,$request->validated());
+        return redirect()->route('combat-skills.index')->with(['message' => 'Успешно!']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Modules\Admin/CombatSkills\Models\CombatSkill  $combatSkill
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(CombatSkills $combatSkill)
     {
-        //
+        $combatSkill->delete();
     }
 }

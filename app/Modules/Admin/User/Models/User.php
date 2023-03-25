@@ -4,6 +4,7 @@ namespace App\Modules\Admin\User\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Filter\Filterable;
+use App\Modules\Admin\User\Models\SettersUser\UserSetters;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -14,7 +15,7 @@ use App\Filter\QueryFilter;
 use Illuminate\Database\Eloquent\Builder;
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,HasOneRelation,HasRoles,Filterable;
+    use HasApiTokens, HasFactory, Notifiable,HasOneRelation,HasRoles,Filterable,UserSetters;
 
     /**
      * The attributes that are mass assignable.

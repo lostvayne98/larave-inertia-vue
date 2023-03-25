@@ -1,10 +1,49 @@
 <template>
     <li class="nav-item">
         <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+
             <Link class="nav-link" :href="route('users.index')" >
 
                 <p>   Пользователи </p>
+
+            </Link>
+
+        </a>
+
+    </li>
+
+    <li class="nav-item">
+        <a href="#" class="nav-link">
+
+            <Link class="nav-link" :href="route('heroes.index')" >
+
+                <p>   Герои </p>
+
+            </Link>
+
+        </a>
+
+    </li>
+
+    <li class="nav-item">
+        <a href="#" class="nav-link">
+
+            <Link class="nav-link" :href="route('combat-skills.index')" >
+
+                <p> Обычные Скиллы </p>
+
+            </Link>
+
+        </a>
+
+    </li>
+
+    <li class="nav-item">
+        <a href="#" class="nav-link">
+
+            <Link class="nav-link" :href="route('hack-skills.index')" >
+
+                <p> Хак Скиллы </p>
 
             </Link>
 

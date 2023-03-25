@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Modules\Admin\User\Requests;
+namespace App\Modules\Admin\CombatSkills\Requests;
 use \Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class FilterRequest extends FormRequest
+class CombatSkillStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,15 +26,8 @@ class FilterRequest extends FormRequest
     public function rules()
     {
         return [
-            'created_at' => 'nullable | date',
-            'id' => 'nullable | String',
-            'orderBy' => 'nullable'
+            'name' => 'alpha | required',
+            'rarity' => 'alpha | required'
         ];
-    }
-
-
-    public function validated($key = null, $default = null)
-    {
-        return  parent::validated($key, $default);
     }
 }

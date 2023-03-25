@@ -9,4 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 class CombatSkills extends Model
 {
     use HasFactory,MorphRelation;
+
+    protected $fillable = [
+        'name',
+        'rarity'
+    ];
 }
