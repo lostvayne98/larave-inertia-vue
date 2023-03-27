@@ -2,6 +2,7 @@
 
 namespace App\Modules\Admin\Heroes\Controllers\Actions;
 
+use App\Modules\Admin\HackSkills\Models\HackSkill;
 use App\Modules\Admin\Heroes\Models\Heroes;
 
 class CreateHeroHackSkillAction
@@ -10,7 +11,8 @@ class CreateHeroHackSkillAction
     {
         if (!empty($data['hack_skills'])) {
 
-            $hero->hack_skills()->skill()->associate($data['combat_skills']);
+         //$skills =   HackSkill::query()->whereIn('id',$data['hack_skills'])->get();
+            //$hero->hack_skills()->skill()->associate($data['combat_skills']);
 
         }
     }

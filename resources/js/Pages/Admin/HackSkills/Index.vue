@@ -21,9 +21,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="skill in skills.data" :key="user.id">
+                    <tr v-for="skill in skills.data" :key="skill.id">
 
-                        <td><Link :href="route('users.show',skill.id)">{{skill.id}}</Link></td>
+                        <td><Link :href="route('hack-skills.read',skill.id)">{{skill.id}}</Link></td>
                         <td>{{skill.name}}</td>
                         <td> </td>
                         <td> {{skill.created_at}}</td>

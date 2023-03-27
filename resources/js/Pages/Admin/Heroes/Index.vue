@@ -23,7 +23,7 @@
                     <tbody>
                     <tr v-for="hero in heroes.data" :key="hero.id">
 
-                        <td><Link :href="route('heroes.show',hero.id)">{{hero.id}}</Link></td>
+                        <td><Link :href="route('heroes.read',hero.id)">{{hero.id}}</Link></td>
                         <td>{{hero.name}}</td>
                         <td> </td>
                         <td> {{hero.created_at}}</td>

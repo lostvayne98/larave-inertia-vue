@@ -195,8 +195,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        /*App\Services\Admin\UserRoutes\RouteServices::class,
-        App\Services\Admin\AdminRoutes\RouteServices::class,*/
+        App\Providers\CrudProivder::class,
         App\Providers\ModularProvider::class,
 
     ],

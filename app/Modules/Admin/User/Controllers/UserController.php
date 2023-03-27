@@ -5,6 +5,7 @@ namespace App\Modules\Admin\User\Controllers;
 use App\Modules\Admin\ActionsCRUD\DeleteAction;
 use App\Modules\Admin\ActionsCRUD\StoreAction;
 use App\Modules\Admin\ActionsCRUD\UpdateAction;
+use App\Modules\Admin\CrudService\CrudInterface;
 use App\Modules\Admin\Heroes\Models\Heroes;
 use App\Modules\Admin\User\Controllers\Actions\SetRoleAction;
 use App\Modules\Admin\User\Filter\UserFilter;
@@ -12,14 +13,21 @@ use App\Modules\Admin\User\Models\User;
 use App\Modules\Admin\User\Requests\FilterRequest;
 use App\Modules\Admin\User\Requests\StoreRequest;
 use App\Modules\Admin\User\Requests\UpdateRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 
 class UserController extends Controller
 {
+    private $crud;
 
-    public function index(FilterRequest $request)
+    public function __construct(CrudInterface $crud)
+    {
+        $this->crud = $crud;
+    }
+
+    public function index(FilterRequest $request): \Inertia\Response
     {
         $filter = app()->make(UserFilter::class,['queryParams' => array_filter($request->validated())]);
 
@@ -32,9 +40,9 @@ class UserController extends Controller
     }
 
 
-    public function create()
+    public function create(): \Inertia\Response
     {
-        $heroes = Heroes::whereNull('user_id')->get();
+        $heroes = Heroes::query()->whereNull('user_id')->get();
         return Inertia::render('Admin/User/Create',
         [
             'heroes' => $heroes
@@ -42,11 +50,12 @@ class UserController extends Controller
     }
 
 
-    public function store(StoreRequest $request,User $user,StoreAction $action,SetRoleAction $roleAction)
+    public function store(StoreRequest $request,User $user,SetRoleAction $roleAction):RedirectResponse
     {
             //cоздание пользователя
 
-           $model =  $action->store($user,$request->validated());
+           $model =  $this->crud->create($user,$request->validated());
+
 
             $roleAction->handle($model,'user');
 
@@ -55,15 +64,18 @@ class UserController extends Controller
     }
 
 
-    public function show(User $user)
+    public function show(User $user): \Inertia\Response
     {
+
+        $user =  $this->crud->read($user,$user->id);
+
         return Inertia::render('Admin/User/Show',[
            'user' => $user
         ]);
     }
 
 
-    public function edit(User $user)
+    public function edit(User $user): \Inertia\Response
     {
         $heroes = Heroes::query()->whereNull('user_id')->get();
         return Inertia::render('Admin/User/Update',[
@@ -73,9 +85,10 @@ class UserController extends Controller
     }
 
 
-    public function update(UpdateRequest $request, User $user,UpdateAction $action)
+    public function update(UpdateRequest $request, User $user):RedirectResponse
     {
-        $action->update($user,$request->validated());
+
+        $this->crud->update($user,$request->validated());
 
         return redirect()->route('users.show',$user->id)->with([
             'message' => 'Успешно!'
@@ -83,8 +96,9 @@ class UserController extends Controller
     }
 
 
-    public function destroy(User $user,DeleteAction $action)
+    public function destroy(User $user):RedirectResponse
     {
-        $action->delete($user);
+        $this->crud->delete($user);
+        return redirect()->route('users.index')->with(['message' => 'Успешно!']);
     }
 }

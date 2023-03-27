@@ -2,20 +2,25 @@
 
 namespace App\Modules\Admin\HackSkills\Controllers;
 
-use App\Modules\Admin\ActionsCRUD\DeleteAction;
-use App\Modules\Admin\ActionsCRUD\StoreAction;
-use App\Modules\Admin\ActionsCRUD\UpdateAction;
-use App\Modules\Admin\HackSkills\Controllers\Actions\HackSkillStoreAction;
+
+use App\Modules\Admin\CrudService\CrudInterface;
 use App\Modules\Admin\HackSkills\Models\HackSkill;
 use App\Modules\Admin\HackSkills\Requests\HackSkillsStoreRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 
 class HackSkillsController extends Controller
 {
+    private $crud;
 
-    public function index()
+    public function __construct(CrudInterface $crud)
+    {
+        $this->crud = $crud;
+    }
+
+    public function index(): \Inertia\Response
     {
         return Inertia::render('Admin/HackSkills/Index',[
             'skills' => HackSkill::query()->paginate(6)
@@ -23,19 +28,21 @@ class HackSkillsController extends Controller
     }
 
 
-    public function create()
+    public function create(): \Inertia\Response
     {
         return Inertia::render('Admin/HackSkills/Create');
     }
 
 
-    public function store(HackSkillsStoreRequest $request,HackSkill $skill,StoreAction $action)
+    public function store(HackSkillsStoreRequest $request,HackSkill $skill):RedirectResponse
     {
-        $action->store($skill,$request->validated());
+        $this->crud->create($skill,$request->validated());
+        return redirect()->route('hack-skills.index')->with(['message' => 'Успешно']);
+
     }
 
 
-    public function show(HackSkill $hackSkill)
+    public function show(HackSkill $hackSkill): \Inertia\Response
     {
         return Inertia::render('Admin/HackSkills/Show',[
             'skill' => $hackSkill
@@ -49,14 +56,17 @@ class HackSkillsController extends Controller
     }
 
 
-    public function update(Request $request, HackSkill $hackSkill,UpdateAction $action)
+    public function update(Request $request, HackSkill $hackSkill):RedirectResponse
     {
-        $action->update($hackSkill,$request->all());
+        $this->crud->update($hackSkill,$request->all());
+        return redirect()->route('hack-skills.index')->with(['message' => 'Успешно']);
+
     }
 
 
-    public function destroy(HackSkill $hackSkill,DeleteAction $action)
+    public function destroy(HackSkill $hackSkill):RedirectResponse
     {
-        $action->delete($hackSkill);
+        $this->crud->delete($hackSkill);
+        return redirect()->route('hack-skills.index')->with(['message' => 'Успешно']);
     }
 }

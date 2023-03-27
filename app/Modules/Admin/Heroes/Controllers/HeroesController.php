@@ -2,33 +2,43 @@
 
 namespace App\Modules\Admin\Heroes\Controllers;
 
-use App\Modules\Admin\ActionsCRUD\DeleteAction;
-use App\Modules\Admin\ActionsCRUD\StoreAction;
-use App\Modules\Admin\ActionsCRUD\UpdateAction;
+
 use App\Modules\Admin\CombatSkills\Models\CombatSkills;
+use App\Modules\Admin\CrudService\CrudInterface;
 use App\Modules\Admin\HackSkills\Models\HackSkill;
 use App\Modules\Admin\Heroes\Controllers\Actions\CreateHeroCombatSkillAction;
 use App\Modules\Admin\Heroes\Controllers\Actions\CreateHeroHackSkillAction;
 use App\Modules\Admin\Heroes\Models\Heroes;
 use App\Modules\Admin\Heroes\Requests\HeroesStoreRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 
 class HeroesController extends Controller
 {
+    private $crud;
 
-    public function index()
+    public function __construct(CrudInterface $crud)
+    {
+        $this->crud = $crud;
+    }
+
+    public function index(): \Inertia\Response
     {
         $heroes = Heroes::query()->orderBy('id')->paginate(5);
+
+
         return Inertia::render('Admin/Heroes/Index',[
             'heroes' => $heroes
         ]);
     }
 
 
-    public function create()
+    public function create(): \Inertia\Response
     {
+
+
        $combatSkills =  CombatSkills::query()->orderBy('id')->get();
        $hackSkills = HackSkill::query()->orderBy('id')->get();
 
@@ -40,27 +50,27 @@ class HeroesController extends Controller
 
 
     public function store(HeroesStoreRequest $request,Heroes $heroes,
-                          StoreAction $action,
                           CreateHeroCombatSkillAction $combatSkillAction,
-                          CreateHeroHackSkillAction $hackSkillAction)
+                          CreateHeroHackSkillAction $hackSkillAction):RedirectResponse
     {
         $data = $request->validated();
-        try {
-            $hero =  $action->store($heroes,$data);
+
+
+            $hero =  $this->crud->create($heroes,$data);
 
             $combatSkillAction->handle($hero,$data);
 
             $hackSkillAction->handle($hero,$data);
 
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-        }
+            return redirect()->route('heroes.index')->with(['message' => 'Успешно']);
+
+
 
 
     }
 
 
-    public function show(Heroes $hero)
+    public function show(Heroes $hero): \Inertia\Response
     {
         return Inertia::render('Admin/Heroes/Show',[
             'hero' => $hero
@@ -68,7 +78,7 @@ class HeroesController extends Controller
     }
 
 
-    public function edit(Heroes $hero)
+    public function edit(Heroes $hero): \Inertia\Response
     {
         return Inertia::render('Admin/Heroes/Update',[
             'hero' => $hero
@@ -76,14 +86,21 @@ class HeroesController extends Controller
     }
 
 
-    public function update(Request $request, Heroes $hero,UpdateAction $action)
+    public function update(Request $request, Heroes $hero,UpdateAction $action):RedirectResponse
     {
-        $action->update($hero,$request->all());
+
+        $this->crud->update($hero,$request->all());
+
+        return redirect()->route('heroes.index')->with(['message' => 'Успешно']);
+
     }
 
 
-    public function destroy(Heroes $hero,DeleteAction $action)
+    public function destroy(Heroes $hero):RedirectResponse
     {
-        $action->delete($hero);
+        $this->crud->delete($hero);
+
+        return redirect()->route('heroes.index')->with(['message' => 'Успешно']);
+
     }
 }

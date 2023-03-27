@@ -57,9 +57,7 @@ export default {
             }
         }
     },
-    props:{
-        title:String
-    },
+
     components:{
         Link,
         Layout
@@ -70,7 +68,8 @@ export default {
             rarity: null,
         });
         function store() {
-            form.post(route('hack_skills.store'))
+            form.post(route('hack-skills.store'))
+
         }
         return {form, store};
     }

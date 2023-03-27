@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 trait MorphRelation
 {
-    public function skill():MorphOne
+    public function amount_skill():MorphOne
     {
         return $this->morphOne(HeroAmount::class, 'skill');
     }

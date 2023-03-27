@@ -39,17 +39,17 @@
                                 </div>
                                 <div class="card-body">
                                     <label > Скиллы</label>
-                                    <div  v-for="(hacks, index) in hack" class="card-body">
+                                    <div  v-for="(guest, index) in hack" class="card-body">
                                         <label>Хак скилл: {{ index }}
-                                            <select v-model="form.hackSkills[index]" type="text"  class="form-control">
+                                            <select v-model="form.hack_skills[index]" type="text"  class="form-control">
                                                 <option selected disabled class="">Выберите скилл</option>
-                                                <option v-for="hackSkill in hackSkills" :key="hackSkill.id" :value="hackSkill.id"> {{hackSkill.name}}</option>
+                                                <option v-for="hackSkill in hacks" :key="hackSkill.id" :value="hackSkill.id"> {{hackSkill.name}}</option>
                                             </select>
                                         </label>
                                     </div>
                                     <div  v-for="(guest, index) in guests" class="card-body">
                                         <label>Обычный скилл: {{ index }}
-                                            <select v-model="form.combatSkills[index]" type="text"  class="form-control">
+                                            <select v-model="form.combat_skills[index]" type="text"  class="form-control">
                                                 <option selected disabled class="">Выберите скилл</option>
                                                 <option v-for="combatSkill in combatSkills" :key="combatSkill.id" :value="combatSkill.id"> {{combatSkill.name}}</option>
                                             </select>
@@ -131,16 +131,17 @@ export default {
             rank:null,
             bio:null,
             quests:null,
-            hackSkills: [],
-            combatSkills:[],
+            hack_skills: [],
+            combat_skills:[],
             photo:null
         });
         function store() {
-            form.post(route('users.store'))
+            form.post(route('heroes.store'))
 
         }
         return {form, store};
-    }
+    },
+
 
 }
 </script>

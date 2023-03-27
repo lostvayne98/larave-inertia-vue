@@ -17,6 +17,8 @@ class HackSkillsStoreRequest extends  FormRequest
     {
         if (Auth::user()->role('admin') || Auth::user()->role('super_admin')) {
             return true;
+        } else {
+            dd('Вы не Админ');
         }
     }
 
@@ -29,7 +31,7 @@ class HackSkillsStoreRequest extends  FormRequest
     {
         return [
             'name' => 'nullable | max:50',
-            'rarity' => 'in: Обычный ,Редкий ,Уникальный ,Сверхъуникальный'
+            'rarity' => 'in:Уникальный,Редкий,Уникальный,Сверхъуникальный'
         ];
     }
 

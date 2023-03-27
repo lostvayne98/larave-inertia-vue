@@ -16,6 +16,8 @@ class HeroesStoreRequest extends FormRequest
     {
         if (Auth::user()->role('admin') || Auth::user()->role('super_admin')) {
             return true;
+        } else {
+            dd('Вы не супер Админ');
         }
     }
 
@@ -33,8 +35,8 @@ class HeroesStoreRequest extends FormRequest
             'course' => 'String  | nullable',
             'rank' => 'String | nullable' ,
             'photo' => 'image | nullable',
-            'combat_skills' => 'array | nullable',
-            'hack_skills' => 'array | nullable',
+            'combat_skills' => 'nullable',
+            'hack_skills' => 'nullable',
         ];
     }
 

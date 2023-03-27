@@ -13,4 +13,22 @@ class Heroes extends Model
 {
     use HasFactory,HasOneRelation,HasManyRelations,Filterable;
 
+    protected $fillable = [
+        'user_id',
+        'name',
+        'faculty',
+        'course',
+        'rank',
+        'bio',
+        'quests',
+        'photo',
+        'life',
+        'energy',
+        'firewall'
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d h:i:s',
+    ];
+
 }
