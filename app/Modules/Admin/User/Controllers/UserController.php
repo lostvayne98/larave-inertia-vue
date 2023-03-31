@@ -2,12 +2,11 @@
 
 namespace App\Modules\Admin\User\Controllers;
 
-use App\Modules\Admin\ActionsCRUD\DeleteAction;
-use App\Modules\Admin\ActionsCRUD\StoreAction;
-use App\Modules\Admin\ActionsCRUD\UpdateAction;
-use App\Modules\Admin\CrudService\CrudInterface;
+
+use App\Modules\Admin\User\Controllers\Actions\UpdateHero\UpdateHeroInUserInterface;
+use App\Services\CrudService\CrudInterface;
 use App\Modules\Admin\Heroes\Models\Heroes;
-use App\Modules\Admin\User\Controllers\Actions\SetRoleAction;
+use App\Modules\Admin\User\Controllers\Actions\SetRole\SetRoleInterface;
 use App\Modules\Admin\User\Filter\UserFilter;
 use App\Modules\Admin\User\Models\User;
 use App\Modules\Admin\User\Requests\FilterRequest;
@@ -43,6 +42,7 @@ class UserController extends Controller
     public function create(): \Inertia\Response
     {
         $heroes = Heroes::query()->whereNull('user_id')->get();
+
         return Inertia::render('Admin/User/Create',
         [
             'heroes' => $heroes
@@ -50,14 +50,13 @@ class UserController extends Controller
     }
 
 
-    public function store(StoreRequest $request,User $user,SetRoleAction $roleAction):RedirectResponse
+    public function store(StoreRequest $request,User $user,SetRoleInterface $roleAction):RedirectResponse
     {
             //cоздание пользователя
-
            $model =  $this->crud->create($user,$request->validated());
 
 
-            $roleAction->handle($model,'user');
+            $roleAction->setRole($model,'user');
 
             return redirect()->route('users.index');
 
@@ -68,6 +67,7 @@ class UserController extends Controller
     {
 
         $user =  $this->crud->read($user,$user->id);
+        $user->load('hero');
 
         return Inertia::render('Admin/User/Show',[
            'user' => $user
@@ -85,10 +85,11 @@ class UserController extends Controller
     }
 
 
-    public function update(UpdateRequest $request, User $user):RedirectResponse
+    public function update(UpdateRequest $request, User $user,UpdateHeroInUserInterface $heroInUser):RedirectResponse
     {
 
         $this->crud->update($user,$request->validated());
+        $heroInUser->updateHero($user,$request->hero_id);
 
         return redirect()->route('users.show',$user->id)->with([
             'message' => 'Успешно!'

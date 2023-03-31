@@ -3,13 +3,11 @@
 namespace App\Modules\Admin\Heroes\Controllers;
 
 
-use App\Modules\Admin\CombatSkills\Models\CombatSkills;
-use App\Modules\Admin\CrudService\CrudInterface;
-use App\Modules\Admin\HackSkills\Models\HackSkill;
-use App\Modules\Admin\Heroes\Controllers\Actions\CreateHeroCombatSkillAction;
-use App\Modules\Admin\Heroes\Controllers\Actions\CreateHeroHackSkillAction;
+use App\Services\CrudService\CrudInterface;
+use App\Modules\Admin\Heroes\Controllers\Actions\CreateAmountSkills;
 use App\Modules\Admin\Heroes\Models\Heroes;
 use App\Modules\Admin\Heroes\Requests\HeroesStoreRequest;
+use App\Modules\Admin\Skills\Models\Skill;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -39,8 +37,8 @@ class HeroesController extends Controller
     {
 
 
-       $combatSkills =  CombatSkills::query()->orderBy('id')->get();
-       $hackSkills = HackSkill::query()->orderBy('id')->get();
+       $combatSkills =  Skill::query()->Combats()->orderBy('id')->get();
+       $hackSkills = Skill::query()->Hacks()->orderBy('id')->get();
 
         return Inertia::render('Admin/Heroes/Create',[
             'combats' => $combatSkills,
@@ -49,29 +47,19 @@ class HeroesController extends Controller
     }
 
 
-    public function store(HeroesStoreRequest $request,Heroes $heroes,
-                          CreateHeroCombatSkillAction $combatSkillAction,
-                          CreateHeroHackSkillAction $hackSkillAction):RedirectResponse
+    public function store(HeroesStoreRequest $request,Heroes $heroes,CreateAmountSkills $amountSkills):RedirectResponse
     {
-        $data = $request->validated();
+        $hero =  $this->crud->create($heroes,$request->except('hack_skills','combat_skills'));
+        $amountSkills->handle($hero,$request->only('hack_skills','combat_skills'));
 
-
-            $hero =  $this->crud->create($heroes,$data);
-
-            $combatSkillAction->handle($hero,$data);
-
-            $hackSkillAction->handle($hero,$data);
-
-            return redirect()->route('heroes.index')->with(['message' => 'Успешно']);
-
-
-
+        return redirect()->route('heroes.index')->with(['message' => 'Успешно']);
 
     }
 
 
     public function show(Heroes $hero): \Inertia\Response
     {
+        $hero->load('user');
         return Inertia::render('Admin/Heroes/Show',[
             'hero' => $hero
         ]);
@@ -86,7 +74,7 @@ class HeroesController extends Controller
     }
 
 
-    public function update(Request $request, Heroes $hero,UpdateAction $action):RedirectResponse
+    public function update(Request $request, Heroes $hero):RedirectResponse
     {
 
         $this->crud->update($hero,$request->all());

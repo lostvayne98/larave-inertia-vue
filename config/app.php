@@ -195,8 +195,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\CrudProivder::class,
+        App\Providers\CrudServiceProvider::class,
         App\Providers\ModularProvider::class,
+        App\Modules\Admin\User\Providers\UpdateHeroProvider::class,
+        App\Modules\Admin\User\Providers\RoleServiceProvider::class,
 
     ],
 

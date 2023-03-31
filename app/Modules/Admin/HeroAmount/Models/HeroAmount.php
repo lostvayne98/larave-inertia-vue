@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class HeroAmount extends Model
 {
-    use HasFactory,MorphRelation;
+    use HasFactory;
 
     protected $fillable = [
         'skill_id',

@@ -28,7 +28,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Hero</label>
                                         <select v-model="form.hero_id">
-                                            <option></option>
+                                            <option v-for="hero in heroes" :value="hero.id"> {{hero.name}} </option>
                                         </select>
                                     </div>
                                     <!--

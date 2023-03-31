@@ -51,7 +51,7 @@
                                         <label>Обычный скилл: {{ index }}
                                             <select v-model="form.combat_skills[index]" type="text"  class="form-control">
                                                 <option selected disabled class="">Выберите скилл</option>
-                                                <option v-for="combatSkill in combatSkills" :key="combatSkill.id" :value="combatSkill.id"> {{combatSkill.name}}</option>
+                                                <option v-for="combatSkill in combats" :key="combatSkill.id" :value="combatSkill.id"> {{combatSkill.name}}</option>
                                             </select>
                                         </label>
                                     </div>

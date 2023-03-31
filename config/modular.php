@@ -14,8 +14,7 @@ return [
     'modules' => [
         'Admin' => [
             'Admin',
-            'CombatSkills',
-            'HackSkills',
+            'Skills',
             'HeroAmount',
             'Heroes',
             'User',

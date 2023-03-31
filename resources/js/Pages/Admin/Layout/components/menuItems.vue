@@ -28,28 +28,17 @@
     <li class="nav-item">
         <a href="#" class="nav-link">
 
-            <Link class="nav-link" :href="route('combat-skills.index')" >
+            <Link class="nav-link" :href="route('skills.index')" >
 
-                <p> Обычные Скиллы </p>
-
-            </Link>
-
-        </a>
-
-    </li>
-
-    <li class="nav-item">
-        <a href="#" class="nav-link">
-
-            <Link class="nav-link" :href="route('hack-skills.index')" >
-
-                <p> Хак Скиллы </p>
+                <p> Скиллы </p>
 
             </Link>
 
         </a>
 
     </li>
+
+
     <li class="nav-item">
         <a href="../widgets.html" class="nav-link">
             <i class="nav-icon fas fa-th"></i>

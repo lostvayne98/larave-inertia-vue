@@ -3,9 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Modules\Admin\Heroes\Models\Heroes;
-use App\Modules\Admin\User\Models\User;
-use App\Modules\Admin\Skills\Models\Skill;
+
 return new class extends Migration
 {
     /**
@@ -15,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hero_amounts', function (Blueprint $table) {
+        Schema::create('skills', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Skill::class);
-            $table->foreignIdFor(Heroes::class);
-            $table->integer('amount')->default(1);
+            $table->string('name');
+            $table->string('rarity');
+            $table->enum('type',['hack','combat']);
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_hero_amounts');
+        Schema::dropIfExists('table_skills');
     }
 };
