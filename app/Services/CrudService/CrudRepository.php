@@ -25,6 +25,6 @@ class CrudRepository implements CrudInterface
 
     public function delete(object $model)
     {
-        $model::delete();
+        $model->delete();
     }
 }

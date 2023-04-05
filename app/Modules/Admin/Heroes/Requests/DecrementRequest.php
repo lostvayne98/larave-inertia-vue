@@ -19,10 +19,21 @@ class DecrementRequest extends  FormRequest
 
     public function rules()
     {
-        return [
+        $rules = [
             'decrement' => [
-                Rule::in('life','energy','firewall')
-            ]
+                Rule::in('life','energy','firewall','skill')
+            ],
         ];
+
+        if ($this->input('decrement') == 'skill') {
+            $rules['skill_id'] = [
+                'required',
+                Rule::exists('hero_amounts','id')
+
+            ];
+
+        }
+
+        return $rules;
     }
 }

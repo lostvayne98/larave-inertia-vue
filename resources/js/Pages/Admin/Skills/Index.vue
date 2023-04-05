@@ -17,6 +17,7 @@
                         <th>Имя</th>
                         <th>Тип</th>
                         <th>Дата</th>
+                        <th>Действия</th>
 
                     </tr>
                     </thead>
@@ -27,6 +28,7 @@
                         <td>{{skill.name}}</td>
                         <td> {{skill.type}}</td>
                         <td> {{skill.created_at}}</td>
+                        <td> <button class="btn btn-danger">Удалить</button> </td>
 
 
                     </tr>
@@ -72,6 +74,10 @@ export default {
                 return location.href = route('users.index') + `/?orderBy=1` + `&${page}`
             }
         },
+
+        deleteSkill(id) {
+        this.$inertia.delete(route('skills.delete',id))
+        }
 
 
     },

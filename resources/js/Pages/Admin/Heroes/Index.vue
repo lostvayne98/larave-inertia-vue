@@ -17,6 +17,7 @@
                         <th>Имя</th>
                         <th>Герой</th>
                         <th>Дата</th>
+                        <th>Действия</th>
 
                     </tr>
                     </thead>
@@ -27,6 +28,7 @@
                         <td>{{hero.name}}</td>
                         <td> </td>
                         <td> {{hero.created_at}}</td>
+                        <td> <button class="btn btn-danger" @click="deleteHero(hero.id)">Удалить </button> </td>
 
 
                     </tr>
@@ -73,6 +75,9 @@ export default {
             }
         },
 
+        deleteHero(id) {
+            this.$inertia.delete(route('heroes.delete',id))
+        }
 
     },
 

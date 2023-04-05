@@ -3,7 +3,8 @@
 namespace App\Modules\Admin\Heroes\Controllers;
 
 
-use App\Modules\Admin\HeroAmount\Models\HeroAmount;
+
+use App\Modules\Admin\Heroes\Requests\UpdateRequest;
 use App\Services\CrudService\CrudInterface;
 use App\Modules\Admin\Heroes\Controllers\Actions\CreateAmountSkills;
 use App\Modules\Admin\Heroes\Models\Heroes;
@@ -73,16 +74,17 @@ class HeroesController extends Controller
 
     public function edit(Heroes $hero): \Inertia\Response
     {
+        $hero->load('skills');
         return Inertia::render('Admin/Heroes/Update',[
             'hero' => $hero
         ]);
     }
 
 
-    public function update(Request $request, Heroes $hero):RedirectResponse
+    public function update(UpdateRequest $request, Heroes $hero):RedirectResponse
     {
 
-        $this->crud->update($hero,$request->all());
+        $this->crud->update($hero,$request->validated());
 
         return redirect()->route('heroes.index')->with(['message' => 'Успешно']);
 
