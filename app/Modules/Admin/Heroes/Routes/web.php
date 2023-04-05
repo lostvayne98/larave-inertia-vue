@@ -9,3 +9,12 @@ Route::group(['prefix' => 'heroes', 'middleware' => []], function () {
     Route::put('/{hero}', 'HeroesController@update')->name('heroes.update');
     Route::delete('/{hero}', 'HeroesController@destroy')->name('heroes.delete');
 });
+
+Route::group(['prefix' => 'heroes/increment','middleware' => []],function () {
+    Route::post('/{hero}','IncrementController')->name('increment');
+
+});
+
+Route::group(['prefix' => 'heroes/decrement','middleware' => []],function () {
+    Route::post('/{hero}', 'DecrementController')->name('decrement');
+});

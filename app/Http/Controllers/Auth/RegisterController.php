@@ -66,7 +66,7 @@ class RegisterController extends Controller
 
             $user = User::create([
             'name' => $data['name'],
-            'password' => Hash::make($data['password']),
+            'password' => bcrypt($data['password']),
         ]);
             $user->assignRole('admin');
             return $user;

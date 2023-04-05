@@ -199,7 +199,8 @@ return [
         App\Providers\ModularProvider::class,
         App\Modules\Admin\User\Providers\UpdateHeroProvider::class,
         App\Modules\Admin\User\Providers\RoleServiceProvider::class,
-
+        App\Modules\Admin\Heroes\Providers\IncrementServiceProvider::class,
+        App\Modules\Admin\Heroes\Providers\DecrementServiceProvider::class,
     ],
 
     /*

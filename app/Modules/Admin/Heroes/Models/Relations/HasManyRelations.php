@@ -9,15 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 trait HasManyRelations
 {
-//    public function hack_skills():HasMany
-//    {
-//        return $this->HasMany(HackSkill::class,'hero_id','id');
-//    }
-//
-//    public function combat_skills():HasMany
-//    {
-//        return  $this->hasMany(CombatSkills::class,'hero_id','id');
-//    }
+
 
     public function skills():HasMany
     {

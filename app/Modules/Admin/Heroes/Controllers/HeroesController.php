@@ -3,6 +3,7 @@
 namespace App\Modules\Admin\Heroes\Controllers;
 
 
+use App\Modules\Admin\HeroAmount\Models\HeroAmount;
 use App\Services\CrudService\CrudInterface;
 use App\Modules\Admin\Heroes\Controllers\Actions\CreateAmountSkills;
 use App\Modules\Admin\Heroes\Models\Heroes;
@@ -59,7 +60,11 @@ class HeroesController extends Controller
 
     public function show(Heroes $hero): \Inertia\Response
     {
-        $hero->load('user');
+        $hero->load([
+           'user',
+           'skills',
+           'skills.skill'
+        ]);
         return Inertia::render('Admin/Heroes/Show',[
             'hero' => $hero
         ]);
